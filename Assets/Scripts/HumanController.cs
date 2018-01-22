@@ -12,7 +12,10 @@ public class HumanController : PlayerController
 
     public override void OnTurnStart()
     {
-        throw new NotImplementedException();
+        while(true)
+        {
+            // UpdateTurn(); (UPDATE)
+        }
     }
 
     public void EndTurn()
@@ -30,7 +33,7 @@ public class HumanController : PlayerController
         {
             if(lastSelectedChar == null)
                 SelectCharacter();
-            else//Quick and dirty demo! FIX ME
+            else
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
