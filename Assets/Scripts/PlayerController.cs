@@ -4,15 +4,22 @@ using UnityEngine;
 
 public abstract class PlayerController : MonoBehaviour {
 
-    protected Character selectedCharacter;
-    protected string selectedAction;
-    protected Character selectedCharacterTarget;
-    protected RaycastHit selectedLocationTarget;
+    protected enum TargetType { Location, Enemy, Friendly, Self };
 
+    protected Character selectedCharacter = null;
+    protected TargetType targetType = TargetType.Location;
+    protected Character selectedCharacterTarget = null;
+    protected Vector3 selectedLocationTarget = Vector3.zero;
 
-    public void OnTurnStart()
+    public void TurnStart()
     {
-        this.ExecuteTurn();
+        this.selectedCharacter = null;
+        this.targetType = TargetType.Location;
+        this.selectedCharacterTarget = null;
+        this.selectedLocationTarget = Vector3.zero;
+
+        this.GetCharacterSelection();
+        this.GetActionSelection();
     }
 
     public void OnTurnEnd()
@@ -20,48 +27,22 @@ public abstract class PlayerController : MonoBehaviour {
         GameManager.Singleton.FinishTurn();
     }
 
-    public void CancelTurn()
+    public void AttackAction()
     {
 
     }
 
-    public void ExecuteTurn()
+    public void MoveAction()
     {
 
     }
 
-    protected void GetTargetSelection()
+    public void AbilityAction(int abilityNumber)
     {
-        // check that selectedCharacter is not NULL
-        switch (selectedAction)
-        {
-            case "MOVE":
-                this.GetLocationSelection();
-                break;
-            case "ATTACK":
-                this.GetEnemySelection();
-                break;
-            case "ABILITY":
-                //abilityParent ability = selectedCharacter.getAbilityOne()
-                string abilityType = "FRIENDLY";  // ability.getType();
-                switch (abilityType)
-                {
-                    case "FRIENDLY":
-                        GetFriendlySelection();
-                        break;
-                    case "ENEMY":
-                        GetEnemySelection();
-                        break;
-                    case "LOCATION":
-                        GetLocationSelection();
-                        break;
-                    case "SELF":
-                        this.selectedCharacterTarget = selectedCharacter;
-                        break;
-                }
-                break;
-        }
+
     }
+
+    protected abstract void GetCharacterSelection();
     
     protected abstract void GetActionSelection();
 
