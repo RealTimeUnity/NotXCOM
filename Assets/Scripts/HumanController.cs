@@ -10,10 +10,6 @@ public class HumanController : PlayerController
     public Character lastSelectedChar;
     private Boolean actionCanceled;
 
-    public override void OnTurnStart()
-    {
-        throw new NotImplementedException();
-    }
 
     public void EndTurn()
     {
@@ -30,7 +26,7 @@ public class HumanController : PlayerController
         {
             if(lastSelectedChar == null)
                 SelectCharacter();
-            else//Quick and dirty demo! FIX ME
+            else
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
