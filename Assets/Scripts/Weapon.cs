@@ -7,10 +7,10 @@ public class Weapon : MonoBehaviour {
     public float Range;
     public int Damage;
     public int Speed; //Eventually will attack multiple times, depending on weapon speed
-    enum weaponType {Pistol, Shotgun, Rifle, Sniper}
 
-    void Start(weaponType type)//Initializes stats
+    void Start()//Initializes stats
     {
+        /*
         if (type == weaponType.Pistol)
         {
             Range = 25;
@@ -30,7 +30,7 @@ public class Weapon : MonoBehaviour {
         {
             Range = 100;
             Damage = 40;
-        }
+        }*/
     }
 
     // Attack Function
