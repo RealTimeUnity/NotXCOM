@@ -33,18 +33,28 @@ public class Weapon : MonoBehaviour {
         }*/
     }
 
+	public int Target(Character c){
+		int accuracy = 0;
+		float dis = Vector3.Distance(this.transform.position, c.transform.position);
+		if(dis > Range)
+		{
+			if(dis < (2 * Range))
+			{
+				accuracy = (int)(((dis % Range) / Range) * 100);
+			}
+		}
+		else {
+			accuracy = 100;
+		}
+		return accuracy;
+	}
+
     // Attack Function
-    public int Attack (Character c) {
-        int dam = 0;
-        float dis = Vector3.Distance(this.transform.position, c.transform.position);
-        if(dis > Range)
-        {
-            if(dis < (2 * Range))
-            {
-                dam = (int)(Damage - (dis % Range));
-            }
-        }
-        else {
+	public int Attack (int accuracy) {
+		int dam = 0;
+		System.Random rand = new System.Random ();
+		int num = rand.Next (0, 100);
+		if(num < accuracy){
             dam = Damage;
         }
         return dam;
