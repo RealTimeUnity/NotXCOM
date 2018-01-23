@@ -10,13 +10,6 @@ public class HumanController : PlayerController
     public Character lastSelectedChar;
     private Boolean actionCanceled;
 
-    public override void OnTurnStart()
-    {
-        while(true)
-        {
-            // UpdateTurn(); (UPDATE)
-        }
-    }
 
     public void EndTurn()
     {

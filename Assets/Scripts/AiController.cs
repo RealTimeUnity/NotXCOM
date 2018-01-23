@@ -13,10 +13,6 @@ public class AiController : PlayerController
     public Character p1;
     public Character p2;
     public Character p3;
-    
-    public override void OnTurnStart()
-    {
-    }
     public void Start()
     {
     }
