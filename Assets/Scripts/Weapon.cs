@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour {
 
-    public float Range;
-    public int Damage;
-    public int Speed; //Eventually will attack multiple times, depending on weapon speed
+    protected float Range;
+    protected int Damage;
 
     void Start()//Initializes stats
     {
@@ -32,6 +31,14 @@ public class Weapon : MonoBehaviour {
             Damage = 40;
         }*/
     }
+
+	public int Get_Damage(){
+		return Damage;
+	}
+
+	public int Get_Range(){
+		return Range;
+	}
 
 	public int Target(Character c){
 		int accuracy = 0;
