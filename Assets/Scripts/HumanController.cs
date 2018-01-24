@@ -4,16 +4,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class HumanController : PlayerController
+public class HumanController : CharacterController
 {
     public Shader shader1;
-    public Character lastSelectedChar;
-    private Boolean actionCanceled;
 
 
-    public void EndTurn()
+    protected override void GetCharacterSelection()
     {
-        GameManager.Singleton.FinishTurn();
+
+    }
+
+    protected override void GetActionType()
+    {
+
+    }
+
+    protected override void GetLocationSelection()
+    {
+
+    }
+
+    protected override void GetEnemySelection()
+    {
+
+    }
+
+    protected override void GetFriendlySelection()
+    {
+
     }
 
     void Update()
