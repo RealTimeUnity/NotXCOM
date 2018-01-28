@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AiController : PlayerController
+public class AiController : CharacterController
 {
 
     public Character enemy1;
@@ -13,10 +13,28 @@ public class AiController : PlayerController
     public Character p1;
     public Character p2;
     public Character p3;
-    public void Start()
+
+    protected override Action GetAction()
     {
+        return null;
     }
-    public void Update()
+
+    protected override Vector3 GetLocationSelection()
+    {
+        return Vector3.zero;
+    }
+
+    protected override Character GetEnemySelection()
+    {
+        return null;
+    }
+
+    protected override Character GetFriendlySelection()
+    {
+        return null;
+    }
+    
+    /*public void Update()
     {
         int range = 10000;
         int tempRange = range;
@@ -90,5 +108,5 @@ public class AiController : PlayerController
             dir = temp;
         }
         enemy3.GetComponent<NavMeshAgent>().SetDestination(dir);
-    }
+    }*/
 }

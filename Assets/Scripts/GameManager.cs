@@ -7,9 +7,9 @@ public class GameManager : MonoBehaviour {
     public static GameManager Singleton;
 
     [SerializeField]
-    private PlayerController humanPlayer;
+    private CharacterController humanPlayer;
     [SerializeField]
-    private PlayerController computerPlayer;
+    private CharacterController computerPlayer;
 
     [SerializeField]
     private Character[] characters;
@@ -30,12 +30,12 @@ public class GameManager : MonoBehaviour {
         if (currentPlayer == PlayerType.Human)
         {
             currentPlayer = PlayerType.Computer;
-            humanPlayer.OnTurnStart();
+            humanPlayer.StartTurn();
         }
         else
         {
             currentPlayer = PlayerType.Human;
-            computerPlayer.OnTurnStart();
+            computerPlayer.StartTurn();
         }
     }
 }

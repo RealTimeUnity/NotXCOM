@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour {
 
-    public PlayerController owner;
+    public CharacterController owner;
     public Weapon primary_weapon;
     public float move_distance_max;
     public float move_distance_left;

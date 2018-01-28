@@ -36,7 +36,7 @@ public class Weapon : MonoBehaviour {
 		return Damage;
 	}
 
-	public int Get_Range(){
+	public float Get_Range(){
 		return Range;
 	}
 
