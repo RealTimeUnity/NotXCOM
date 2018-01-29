@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ScenePreLoader : MonoBehaviour {
 
-    private const string PRELOAD_SCENE_NAME = "preload";
+    private const string PRELOAD_SCENE_NAME = "PreloadScene";
 
     public static ScenePreLoader Singleton;
     private string nextScene;
@@ -28,6 +28,7 @@ public class ScenePreLoader : MonoBehaviour {
         nextScene = sceneName;
         SceneManager.LoadScene(PRELOAD_SCENE_NAME);
     }
+
     public void FinishLoad()
     {
         SceneManager.LoadScene(nextScene);

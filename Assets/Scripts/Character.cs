@@ -10,8 +10,8 @@ public class Character : MonoBehaviour {
     public float move_distance_left;
     public float health;
     private bool can_action;//if move, attack, and abilities are used this is false
-    public abilityParent ability1;
-    public abilityParent ability2;
+    public AbilityParent ability1;
+    public AbilityParent ability2;
     // Use this for initialization
     void Start () {
 		

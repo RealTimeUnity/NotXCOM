@@ -308,7 +308,7 @@ public abstract class CharacterController : MonoBehaviour
                 break;
             case Target.TargetType.Location:
                 location = GetLocationSelection();
-                if (location != null)
+                if (location != Vector3.zero)
                 {
                     target.setLocationTarget(location);
                     return target;
