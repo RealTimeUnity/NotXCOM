@@ -2413,8 +2413,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68e7ed60d277a84b951af556a8e5b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shader1: {fileID: 0}
-  lastSelectedChar: {fileID: 0}
+  friendlies:
+  - {fileID: 2098570983}
+  - {fileID: 1380999405}
+  - {fileID: 758541757}
+  enemies:
+  - {fileID: 705099454}
+  - {fileID: 885198324}
+  - {fileID: 1680975619}
 --- !u!4 &1557240621
 Transform:
   m_ObjectHideFlags: 0

@@ -7,9 +7,9 @@ public class GameManager : MonoBehaviour {
     public static GameManager Singleton;
 
     [SerializeField]
-    private PlayerController humanPlayer;
+    private CharacterController humanPlayer;
     [SerializeField]
-    private PlayerController computerPlayer;
+    private CharacterController computerPlayer;
 
     [SerializeField]
     private Character[] characters;
@@ -24,18 +24,26 @@ public class GameManager : MonoBehaviour {
         else
             DestroyImmediate(gameObject);
     }
+    public void Start()
+    {
+        humanPlayer.CreateFriendlyCharacters();
+        computerPlayer.CreateFriendlyCharacters();
+
+        humanPlayer.SetEnemy(computerPlayer);
+        computerPlayer.SetEnemy(humanPlayer);
+    }
 
     public void FinishTurn()
     {
         if (currentPlayer == PlayerType.Human)
         {
             currentPlayer = PlayerType.Computer;
-            humanPlayer.OnTurnStart();
+            humanPlayer.StartTurn();
         }
         else
         {
             currentPlayer = PlayerType.Human;
-            computerPlayer.OnTurnStart();
+            computerPlayer.StartTurn();
         }
     }
 }

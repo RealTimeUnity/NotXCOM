@@ -4,151 +4,103 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class HumanController : PlayerController
+public class HumanController : CharacterController
 {
-    public Shader shader1;
-    public Character lastSelectedChar;
-    private Boolean actionCanceled;
+    protected Action selectedAction = null;
 
-
-    public void EndTurn()
+    protected void SelectAttackAction()
     {
-        GameManager.Singleton.FinishTurn();
+        Action action = new Action();
+        action.setType(Action.ActionType.Attack);
+        this.selectedAction = action;
     }
 
-    void Update()
+    protected void SelectMoveAction()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        Action action = new Action();
+        action.setType(Action.ActionType.Attack);
+        this.selectedAction = action;
+    }
+
+    protected void SelectAbilityOneAction()
+    {
+        Action action = new Action();
+        action.setType(Action.ActionType.Attack);
+        action.setAbilityNumber(0);
+        this.selectedAction = action;
+    }
+
+    protected void SelectAbilityTwoAction()
+    {
+        Action action = new Action();
+        action.setType(Action.ActionType.Attack);
+        action.setAbilityNumber(1);
+        this.selectedAction = action;
+    }
+
+    protected override Action GetAction()
+    {
+        if (this.selectedAction != null)
         {
-            EndTurn();
+            return this.selectedAction;
         }
+
+        return null;
+    }
+
+    protected override Vector3 GetLocationSelection()
+    {
         if (Input.GetMouseButtonDown(0))
         {
-            if(lastSelectedChar == null)
-                SelectCharacter();
-            else
+            RaycastHit hit = new RaycastHit();
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if(Physics.Raycast(ray, out hit))
+                if (hit.transform.gameObject.tag == "Floor")
                 {
-                    NavMeshHit nhit;
-                    if (NavMesh.SamplePosition(hit.point, out nhit, 10.0f, NavMesh.AllAreas))
-                    {
-                        lastSelectedChar.GetComponent<NavMeshAgent>().SetDestination(nhit.position);
-                        lastSelectedChar.GetComponent<MeshRenderer>().material.SetInt("_Highlighted", 0);
-                        lastSelectedChar = null;
-                    }
+                    return hit.point;
                 }
             }
         }
+
+        return Vector3.zero;
     }
 
-    public void cancelAction()
+    protected override Character GetEnemySelection()
     {
-        this.actionCanceled = true;
-    }
-
-    public void SelectedCharacterAttack()
-    {
-        // this is to be called when a gui button is pressed for the selected character to attack
-        // display radius
-        // Track mouse with waypoint? (maybe not here) (maybe do this all the time)
-        // turn off gui menu and don't allow it to turn back on unless the player clicks a cancel button
-        lastSelectedChar = null;
-        IEnumerator coroutine = WaitForTargetSelection();
-        StartCoroutine(coroutine);
-    }
-
-    public void SelectedCharacterMove()
-    {
-        // this is to be called when a gui button is pressed to move the selected character
-        // display radius
-        // Track mouse with waypoint? (maybe not here) (maybe do this all the time)
-        // turn off gui menu and don't allow it to turn back on unless the player clicks a cancel button
-        lastSelectedChar = null;
-        IEnumerator coroutine = WaitForMovePosition();
-        StartCoroutine(coroutine);
-    }
-
-    private IEnumerator WaitForTargetSelection()
-    {
-        while (true)
+        Character character = GetCharacterClickedOn();
+        if (this.enemies.Contains(character))
         {
-            Character selectedTarget = GetCharacterClickedOn();
-            if (selectedTarget != null && selectedTarget.owner != this)
-            {
-                // lastSelectedChar.attack(selectedTarget)
-                yield break;
-            }
-
-            if (actionCanceled)
-            {
-                actionCanceled = false;
-                yield break;
-            }
-            yield return null;
+            return character;
         }
+
+        return null;
     }
 
-    private IEnumerator WaitForMovePosition()
+    protected override Character GetFriendlySelection()
     {
-        while (true)
+        Character character = GetCharacterClickedOn();
+        if (this.friendlies.Contains(character))
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                RaycastHit hit = new RaycastHit();
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
-                {
-                    if (hit.transform.gameObject.tag == "Floor")
-                    {
-                        // lastSelectedChar.move(hit.point)
-                        yield break;
-                    }
-                }
-            }
-
-            if (actionCanceled)
-            {
-                actionCanceled = false;
-                yield break;
-            }
-            yield return null;
+            return character;
         }
-    }
 
-    private void SelectCharacter()
-    {
-        Character selectedCharacter = GetCharacterClickedOn();
-        if (lastSelectedChar != null)
-        {
-            lastSelectedChar.GetComponent<MeshRenderer>().material.SetInt("_Highlighted", 0);
-        }
-        lastSelectedChar = selectedCharacter;
+        return null;
     }
-
+    
     private Character GetCharacterClickedOn()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.DrawRay(ray.origin, ray.direction * 200, Color.red, 1.0f, true);
-            Character selectedChar = hit.collider.GetComponent<Character>();
-            if(selectedChar != null && selectedChar.owner == this)
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                // add outline, particle shiz, etc...
-                selectedChar.GetComponent<MeshRenderer>().material.SetInt("_Highlighted", 1);
-                return selectedChar;
+                Character selectedChar = hit.collider.GetComponent<Character>();
+                if (selectedChar != null)
+                {
+                    return selectedChar;
+                }
             }
-            else
-            {
-                //deal with it later, not selecting a cube
-            }
-        }
-        else
-        {
-            Debug.DrawRay(ray.origin, ray.direction * 200, Color.blue, 1.0f, true);
         }
 
         return null;
