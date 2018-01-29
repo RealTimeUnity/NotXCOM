@@ -24,6 +24,14 @@ public class GameManager : MonoBehaviour {
         else
             DestroyImmediate(gameObject);
     }
+    public void Start()
+    {
+        humanPlayer.CreateFriendlyCharacters();
+        computerPlayer.CreateFriendlyCharacters();
+
+        humanPlayer.SetEnemy(computerPlayer);
+        computerPlayer.SetEnemy(humanPlayer);
+    }
 
     public void FinishTurn()
     {
