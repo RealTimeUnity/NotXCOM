@@ -2,27 +2,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class HumanController : CharacterController
 {
+    public GameObject ActionConfirmUI;
+    public GameObject MoveConfirmUI;
+    public GameObject CombatUI;
+
     protected Action selectedAction = null;
 
-    protected void SelectAttackAction()
+    public void SelectAttackAction()
     {
         Action action = new Action();
         action.setType(Action.ActionType.Attack);
         this.selectedAction = action;
     }
 
-    protected void SelectMoveAction()
+    public void SelectMoveAction()
     {
         Action action = new Action();
         action.setType(Action.ActionType.Attack);
         this.selectedAction = action;
     }
 
-    protected void SelectAbilityOneAction()
+    public void SelectAbilityOneAction()
     {
         Action action = new Action();
         action.setType(Action.ActionType.Attack);
@@ -30,7 +34,7 @@ public class HumanController : CharacterController
         this.selectedAction = action;
     }
 
-    protected void SelectAbilityTwoAction()
+    public void SelectAbilityTwoAction()
     {
         Action action = new Action();
         action.setType(Action.ActionType.Attack);
@@ -87,7 +91,7 @@ public class HumanController : CharacterController
         return null;
     }
     
-    private Character GetCharacterClickedOn()
+    protected Character GetCharacterClickedOn()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -104,5 +108,45 @@ public class HumanController : CharacterController
         }
 
         return null;
+    }
+
+    new public void Update()
+    {
+        this.UpdateTurn();
+        this.UpdateVisuals();
+        this.UpdateActiveUI();
+    }
+
+    protected void UpdateActiveUI()
+    {
+        switch (this.phase)
+        {
+            case TurnPhase.Begin:
+                this.ActionConfirmUI.SetActive(false);
+                this.MoveConfirmUI.SetActive(false);
+                this.CombatUI.SetActive(false);
+                break;
+            case TurnPhase.SelectCharacter:
+                break;
+            case TurnPhase.SelectMove:
+                this.ActionConfirmUI.SetActive(false);
+                this.MoveConfirmUI.SetActive(true);
+                this.CombatUI.SetActive(false);
+                break;
+            case TurnPhase.SelectAction:
+                this.ActionConfirmUI.SetActive(false);
+                this.MoveConfirmUI.SetActive(false);
+                this.CombatUI.SetActive(true);
+                break;
+            case TurnPhase.SelectTarget:
+                this.ActionConfirmUI.SetActive(true);
+                this.MoveConfirmUI.SetActive(false);
+                this.CombatUI.SetActive(false);
+                break;
+            case TurnPhase.Execution:
+                break;
+            case TurnPhase.End:
+                break;
+        }
     }
 }

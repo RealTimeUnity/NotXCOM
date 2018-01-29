@@ -23,9 +23,9 @@ public class ScenePreLoader : MonoBehaviour {
         }
     }
 
-    public void LoadScene(string sceneName)
+    public void Start()
     {
-        nextScene = sceneName;
+        nextScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(PRELOAD_SCENE_NAME);
     }
 

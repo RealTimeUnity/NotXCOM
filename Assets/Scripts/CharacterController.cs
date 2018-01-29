@@ -100,9 +100,11 @@ public class Action
 public abstract class CharacterController : MonoBehaviour
 {
     protected enum TurnPhase { None, Begin, SelectCharacter, SelectMove, SelectAction, SelectTarget, Execution, End }
-    
-    public List<Character> friendlies;
-    public List<Character> enemies;
+
+    public Character characterPrefab;
+
+    protected List<Character> friendlies = new List<Character>();
+    protected List<Character> enemies = new List<Character>();
 
     protected TurnPhase phase = TurnPhase.None;
     
@@ -143,7 +145,8 @@ public abstract class CharacterController : MonoBehaviour
     {
         for (int i = 0; i < 10; ++i)
         {
-            this.friendlies.Add(new Character());
+            Character newCharacter = Instantiate(characterPrefab);
+            this.friendlies.Add(newCharacter);
         }
     }
 
