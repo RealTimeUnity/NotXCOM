@@ -139,7 +139,7 @@ public abstract class CharacterController : MonoBehaviour
         // GameManager.Singleton.FinishTurn();
     }
 
-    protected void CreateFriendlyCharacters()
+    public void CreateFriendlyCharacters()
     {
         for (int i = 0; i < 10; ++i)
         {
@@ -147,7 +147,7 @@ public abstract class CharacterController : MonoBehaviour
         }
     }
 
-    protected void SetEnemy(CharacterController enemyController)
+    public void SetEnemy(CharacterController enemyController)
     {
         for (int i = 0; i < enemyController.friendlies.Count; ++i)
         {

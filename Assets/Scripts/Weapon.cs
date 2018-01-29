@@ -8,29 +8,7 @@ public class Weapon : MonoBehaviour {
     protected int Damage;
 
     void Start()//Initializes stats
-    {
-        /*
-        if (type == weaponType.Pistol)
-        {
-            Range = 25;
-            Damage = 5;
-        }
-        else if (type == weaponType.Shotgun)
-        {
-            Range = 25;
-            Damage = 40;
-        }
-        else if (type == weaponType.Rifle)
-        {
-            Range = 50;
-            Damage = 15;
-        }
-        else if (type == weaponType.Sniper)
-        {
-            Range = 100;
-            Damage = 40;
-        }*/
-    }
+    { }
 
 	public int Get_Damage(){
 		return Damage;
