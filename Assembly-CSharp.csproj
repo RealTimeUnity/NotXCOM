@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{82483107-BA9A-82FD-136F-EF9E37709844}</ProjectGuid>
+    <ProjectGuid>{C5247BC5-FAAE-C208-FEEE-5B3DF8FF3655}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -55,10 +55,18 @@
      <Compile Include="Assets\Scripts\AiController.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\Character.cs" />
+     <Compile Include="Assets\Scripts\CharacterController.cs" />
+     <Compile Include="Assets\Scripts\Flamethrower.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\HumanController.cs" />
      <Compile Include="Assets\Scripts\Menu.cs" />
-     <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\PersistentObject.cs" />
+     <Compile Include="Assets\Scripts\Pistol.cs" />
+     <Compile Include="Assets\Scripts\PreloadSceneFinish.cs" />
+     <Compile Include="Assets\Scripts\Rifle.cs" />
+     <Compile Include="Assets\Scripts\ScenePreLoader.cs" />
+     <Compile Include="Assets\Scripts\Shotgun.cs" />
+     <Compile Include="Assets\Scripts\Sniper.cs" />
      <Compile Include="Assets\Scripts\Weapon.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasic.shader" />
@@ -129,7 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{7A6EF2FB-86DA-647B-D758-7329F018AF18}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{C08091C4-EF4E-28C4-CCFF-250483F176CD}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
