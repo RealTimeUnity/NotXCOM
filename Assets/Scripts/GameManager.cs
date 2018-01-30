@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour {
     public void Start()
     {
         currentPlayer = PlayerType.Human;
+        humanPlayer.StartTurn();
     }
 
     public void SpawnWave()

@@ -118,13 +118,9 @@ public abstract class CharacterController : MonoBehaviour
     protected bool actionCanceled = false;
     protected bool actionConfirmed = false;
 
-    public void Start()
-    {
-        this.phase = TurnPhase.Begin;
-    }
-
     public void StartTurn()
     {
+        this.phase = TurnPhase.Begin;
     }
 
     protected void EndTurn()
@@ -262,14 +258,27 @@ public abstract class CharacterController : MonoBehaviour
 
     protected void UpdateVisuals()
     {
-        for (int i = 0; i < this.friendlies.Count; ++i)
+        switch (this.phase)
         {
-            this.friendlies[i].GetComponent<MeshRenderer>().material.SetInt("_Highlighted", 0);
-        }
+            case TurnPhase.Begin:
+                break;
+            case TurnPhase.SelectCharacter:
+            case TurnPhase.SelectMove:
+            case TurnPhase.SelectAction:
+            case TurnPhase.SelectTarget:
+            case TurnPhase.Execution:
+                for (int i = 0; i < this.friendlies.Count; ++i)
+                {
+                    this.friendlies[i].GetComponent<MeshRenderer>().material.SetInt("_Highlighted", 0);
+                }
 
-        if (this.subjectIndex < this.friendlies.Count && this.subjectIndex >= 0)
-        {
-            this.friendlies[this.subjectIndex].GetComponent<MeshRenderer>().material.SetInt("_Highlighted", 1);
+                if (this.subjectIndex < this.friendlies.Count && this.subjectIndex >= 0)
+                {
+                    this.friendlies[this.subjectIndex].GetComponent<MeshRenderer>().material.SetInt("_Highlighted", 1);
+                }
+                break;
+            case TurnPhase.End:
+                break;
         }
     }
 
