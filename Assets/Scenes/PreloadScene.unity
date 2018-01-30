@@ -429,13 +429,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd04d8fcb655c8408c39a9484fee413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 0}
-  enemy1: {fileID: 0}
-  enemy2: {fileID: 0}
-  enemy3: {fileID: 0}
-  p1: {fileID: 0}
-  p2: {fileID: 0}
-  p3: {fileID: 0}
+  characterPrefab: {fileID: 114740902250362964, guid: 70cd0f4867f6efe4694e3398e00c8d4c,
+    type: 2}
 --- !u!4 &483574909
 Transform:
   m_ObjectHideFlags: 0
@@ -571,6 +566,7 @@ GameObject:
   - component: {fileID: 1029702482}
   - component: {fileID: 1029702481}
   - component: {fileID: 1029702480}
+  - component: {fileID: 1029702483}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -623,6 +619,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1029702483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1029702479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4254d852615f31446b8fb38df53792d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1268744676
 Prefab:
   m_ObjectHideFlags: 0

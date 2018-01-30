@@ -16,19 +16,16 @@ public class ScenePreLoader : MonoBehaviour {
         {
             Singleton = this;
             DontDestroyOnLoad(gameObject);
+
+            nextScene = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene(PRELOAD_SCENE_NAME);
         }
         else
         {
             DestroyImmediate(gameObject);
         }
     }
-
-    public void Start()
-    {
-        nextScene = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(PRELOAD_SCENE_NAME);
-    }
-
+    
     public void FinishLoad()
     {
         SceneManager.LoadScene(nextScene);

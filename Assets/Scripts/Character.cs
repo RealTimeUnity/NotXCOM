@@ -27,10 +27,11 @@ public class Character : MonoBehaviour {
         health -= damage;
     }
 
-    public void MoveSelf(Vector3 loc)//vector3 location where we want to go
+    public void MoveSelf(Vector3 loc)  // vector3 location where we want to go
     {
         //check to make sure its within max dist - dist left this turn
-        GetComponent<NavMeshAgent>().SetDestination(loc);
+        NavMeshAgent agent = GetComponent<NavMeshAgent>();
+        agent.SetDestination(loc);
         //set target for pathfinder
     }
 

@@ -10,17 +10,17 @@ public class Target
     private Character character = null;
     private Vector3 location = Vector3.zero;
 
-    public TargetType getType()
+    public TargetType GetTargetType()
     {
         return this.type;
     }
 
-    public void setType(TargetType type)
+    public void SetTargetType(TargetType type)
     {
         this.type = type;
     }
 
-    public Character getCharacterTarget()
+    public Character GetCharacterTarget()
     {
         if (this.type == TargetType.Enemy || 
             this.type == TargetType.Friendly || 
@@ -32,7 +32,7 @@ public class Target
         return null;
     }
 
-    public void setCharacterTarget(Character character)
+    public void SetCharacterTarget(Character character)
     {
         if (this.type == TargetType.Enemy ||
             this.type == TargetType.Friendly ||
@@ -42,7 +42,7 @@ public class Target
         }
     }
 
-    public Vector3 getLocationTarget()
+    public Vector3 GetLocationTarget()
     {
         if (this.type == TargetType.Location)
         {
@@ -52,7 +52,7 @@ public class Target
         return Vector3.zero;
     }
 
-    public void setLocationTarget(Vector3 location)
+    public void SetLocationTarget(Vector3 location)
     {
         if (this.type == TargetType.Location)
         {
@@ -68,17 +68,17 @@ public class Action
     private ActionType type = ActionType.None;
     private int abilityNumber = 0;
 
-    public ActionType getType()
+    public ActionType GetActionType()
     {
         return this.type;
     }
 
-    public void setType(ActionType type)
+    public void SetActionType(ActionType type)
     {
         this.type = type;
     }
 
-    public int getAbilityNumber()
+    public int GetAbilityNumber()
     {
         if (this.type == ActionType.Ability)
         {
@@ -88,7 +88,7 @@ public class Action
         return -1;
     }
 
-    public void setAbilityNumber(int abilityNumber)
+    public void SetAbilityNumber(int abilityNumber)
     {
         if (this.type == ActionType.Ability)
         {
@@ -185,8 +185,15 @@ public abstract class CharacterController : MonoBehaviour
             case TurnPhase.SelectMove:
                 if (this.moveConfirmed)
                 {
-                    //this.friendlies[this.subjectIndex].move(this.moveLocation);
-                    this.phase = TurnPhase.SelectAction;
+                    if (this.moveLocation != Vector3.zero)
+                    {
+                        this.friendlies[this.subjectIndex].MoveSelf(this.moveLocation);
+                        this.phase = TurnPhase.SelectAction;
+                    }
+                    else
+                    {
+                        this.moveConfirmed = false;
+                    }
                 }
                 else
                 {
@@ -227,15 +234,23 @@ public abstract class CharacterController : MonoBehaviour
                 }
                 break;
             case TurnPhase.Execution:
-                switch (this.action.getType())
+                switch (this.action.GetActionType())
                 {
                     case Action.ActionType.Move:
-                        // this.friendlies[this.subjectIndex].move(this.target.getLocation());
+                        this.friendlies[this.subjectIndex].MoveSelf(this.target.GetLocationTarget());
                         break;
                     case Action.ActionType.Attack:
-                        // this.friendlies[this.subjectIndex].attack(this.target.getCharacter());
+                        // this.friendlies[this.subjectIndex].attack(this.target.GetCharacter());
                         break;
                 }
+
+                this.moveLocation = Vector3.zero;
+                this.action = null;
+                this.target = null;
+                this.moveConfirmed = false;
+                this.actionCanceled = false;
+                this.actionConfirmed = false;
+
                 this.phase = TurnPhase.SelectCharacter;
                 break;
             case TurnPhase.End:
@@ -260,16 +275,16 @@ public abstract class CharacterController : MonoBehaviour
 
     protected void SetTargetType(Target target)
     {
-        switch (this.action.getType())
+        switch (this.action.GetActionType())
         {
             case Action.ActionType.Move:
-                target.setType(Target.TargetType.Location);
+                target.SetTargetType(Target.TargetType.Location);
                 break;
             case Action.ActionType.Attack:
-                target.setType(Target.TargetType.Enemy);  // selectedCharacter.GetAttackTargetType()
+                target.SetTargetType(Target.TargetType.Enemy);  // selectedCharacter.GetAttackTargetType()
                 break;
             case Action.ActionType.Ability:
-                target.setType(Target.TargetType.Friendly);  // selectedCharacter.GetAbilityTargetType(actionAbilityNumber)
+                target.SetTargetType(Target.TargetType.Friendly);  // selectedCharacter.GetAbilityTargetType(actionAbilityNumber)
                 break;
             case Action.ActionType.None:
                 StartTurn();
@@ -284,12 +299,12 @@ public abstract class CharacterController : MonoBehaviour
 
         Character character = null;
         Vector3 location = Vector3.zero;
-        switch (target.getType())
+        switch (target.GetTargetType())
         {
             case Target.TargetType.Self:
                 if (this.friendlies[this.subjectIndex] != null)
                 {
-                    target.setCharacterTarget(this.friendlies[this.subjectIndex]);
+                    target.SetCharacterTarget(this.friendlies[this.subjectIndex]);
                     return target;
                 }
                 break;
@@ -297,7 +312,7 @@ public abstract class CharacterController : MonoBehaviour
                 character = GetFriendlySelection();
                 if (character != null)
                 {
-                    target.setCharacterTarget(character);
+                    target.SetCharacterTarget(character);
                     return target;
                 }
                 break;
@@ -305,7 +320,7 @@ public abstract class CharacterController : MonoBehaviour
                 character = GetEnemySelection();
                 if (character != null)
                 {
-                    target.setCharacterTarget(character);
+                    target.SetCharacterTarget(character);
                     return target;
                 }
                 break;
@@ -313,7 +328,7 @@ public abstract class CharacterController : MonoBehaviour
                 location = GetLocationSelection();
                 if (location != Vector3.zero)
                 {
-                    target.setLocationTarget(location);
+                    target.SetLocationTarget(location);
                     return target;
                 }
                 break;

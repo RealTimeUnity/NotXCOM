@@ -6,8 +6,6 @@ using UnityEngine.AI;
 
 public class AiController : CharacterController
 {
-    
-
     protected override Action GetAction()
     {
         return null;

@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-
-    public static GameManager Singleton;
-
+    
     [SerializeField]
     private CharacterController humanPlayer;
     [SerializeField]
@@ -15,16 +13,13 @@ public class GameManager : MonoBehaviour {
     private Character[] characters;
 
     private PlayerType currentPlayer;
-
-    public void Awake()
+    
+    public void Start()
     {
         currentPlayer = PlayerType.Human;
-        if (Singleton == null)
-            Singleton = this;
-        else
-            DestroyImmediate(gameObject);
     }
-    public void Start()
+
+    public void SpawnWave()
     {
         humanPlayer.CreateFriendlyCharacters();
         computerPlayer.CreateFriendlyCharacters();

@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class HumanController : CharacterController
 {
@@ -15,30 +16,30 @@ public class HumanController : CharacterController
     public void SelectAttackAction()
     {
         Action action = new Action();
-        action.setType(Action.ActionType.Attack);
+        action.SetActionType(Action.ActionType.Attack);
         this.selectedAction = action;
     }
 
     public void SelectMoveAction()
     {
         Action action = new Action();
-        action.setType(Action.ActionType.Attack);
+        action.SetActionType(Action.ActionType.Move);
         this.selectedAction = action;
     }
 
     public void SelectAbilityOneAction()
     {
         Action action = new Action();
-        action.setType(Action.ActionType.Attack);
-        action.setAbilityNumber(0);
+        action.SetActionType(Action.ActionType.Ability);
+        action.SetAbilityNumber(0);
         this.selectedAction = action;
     }
 
     public void SelectAbilityTwoAction()
     {
         Action action = new Action();
-        action.setType(Action.ActionType.Attack);
-        action.setAbilityNumber(1);
+        action.SetActionType(Action.ActionType.Ability);
+        action.SetAbilityNumber(1);
         this.selectedAction = action;
     }
 
@@ -46,7 +47,9 @@ public class HumanController : CharacterController
     {
         if (this.selectedAction != null)
         {
-            return this.selectedAction;
+            Action result = this.selectedAction;
+            this.selectedAction = null;
+            return result;
         }
 
         return null;
@@ -56,12 +59,17 @@ public class HumanController : CharacterController
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return Vector3.zero;
+            }
             RaycastHit hit = new RaycastHit();
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
             {
-                if (hit.transform.gameObject.tag == "Floor")
+                NavMeshHit nhit;
+                if (NavMesh.SamplePosition(hit.point, out nhit, 10.0f, NavMesh.AllAreas))
                 {
-                    return hit.point;
+                    return nhit.position;
                 }
             }
         }
