@@ -20,10 +20,10 @@ public class GameManager : MonoBehaviour {
         humanPlayer.StartTurn();
     }
 
-    public void SpawnWave()
+    public void SpawnWave(WaveLoader waveLoader)
     {
-        humanPlayer.CreateFriendlyCharacters();
-        computerPlayer.CreateFriendlyCharacters();
+        humanPlayer.CreateFriendlyCharacters(waveLoader.GetRandomSpawnPoint());
+        computerPlayer.CreateFriendlyCharacters(waveLoader.GetRandomSpawnPoint());
 
         humanPlayer.SetEnemy(computerPlayer);
         computerPlayer.SetEnemy(humanPlayer);

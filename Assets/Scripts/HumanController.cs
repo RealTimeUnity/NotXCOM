@@ -10,6 +10,7 @@ public class HumanController : CharacterController
     public GameObject ActionConfirmUI;
     public GameObject MoveConfirmUI;
     public GameObject CombatUI;
+    public GameObject locationPointer;
 
     protected Action selectedAction = null;
 
@@ -125,16 +126,44 @@ public class HumanController : CharacterController
         this.UpdateActiveUI();
     }
 
-    protected void UpdateActiveUI()
+    protected void UpdateVisuals()
     {
         switch (this.phase)
         {
             case TurnPhase.Begin:
+                break;
+            case TurnPhase.SelectCharacter:
+            case TurnPhase.SelectMove:
+            case TurnPhase.SelectAction:
+            case TurnPhase.SelectTarget:
+            case TurnPhase.Execution:
+                for (int i = 0; i < this.friendlies.Count; ++i)
+                {
+                    this.friendlies[i].GetComponent<MeshRenderer>().material.SetInt("_Highlighted", 0);
+                }
+
+                if (this.subjectIndex < this.friendlies.Count && this.subjectIndex >= 0)
+                {
+                    this.friendlies[this.subjectIndex].GetComponent<MeshRenderer>().material.SetInt("_Highlighted", 1);
+                }
+                break;
+            case TurnPhase.End:
+                break;
+        }
+    }
+
+    protected void UpdateActiveUI()
+    {
+        switch (this.phase)
+        {
+            case TurnPhase.None:
+            case TurnPhase.Begin:
+            case TurnPhase.SelectCharacter:
+            case TurnPhase.Execution:
+            case TurnPhase.End:
                 this.ActionConfirmUI.SetActive(false);
                 this.MoveConfirmUI.SetActive(false);
                 this.CombatUI.SetActive(false);
-                break;
-            case TurnPhase.SelectCharacter:
                 break;
             case TurnPhase.SelectMove:
                 this.ActionConfirmUI.SetActive(false);
@@ -150,10 +179,6 @@ public class HumanController : CharacterController
                 this.ActionConfirmUI.SetActive(true);
                 this.MoveConfirmUI.SetActive(false);
                 this.CombatUI.SetActive(false);
-                break;
-            case TurnPhase.Execution:
-                break;
-            case TurnPhase.End:
                 break;
         }
     }

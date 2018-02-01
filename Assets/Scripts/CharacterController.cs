@@ -2,112 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Target
-{
-    public enum TargetType { None, Location, Enemy, Friendly, Self };
-
-    private TargetType type = TargetType.None;
-    private Character character = null;
-    private Vector3 location = Vector3.zero;
-
-    public TargetType GetTargetType()
-    {
-        return this.type;
-    }
-
-    public void SetTargetType(TargetType type)
-    {
-        this.type = type;
-    }
-
-    public Character GetCharacterTarget()
-    {
-        if (this.type == TargetType.Enemy || 
-            this.type == TargetType.Friendly || 
-            this.type == TargetType.Self)
-        {
-            return this.character;
-        }
-
-        return null;
-    }
-
-    public void SetCharacterTarget(Character character)
-    {
-        if (this.type == TargetType.Enemy ||
-            this.type == TargetType.Friendly ||
-            this.type == TargetType.Self)
-        {
-            this.character = character;
-        }
-    }
-
-    public Vector3 GetLocationTarget()
-    {
-        if (this.type == TargetType.Location)
-        {
-            return this.location;
-        }
-
-        return Vector3.zero;
-    }
-
-    public void SetLocationTarget(Vector3 location)
-    {
-        if (this.type == TargetType.Location)
-        {
-            this.location = location;
-        }
-    }
-}
-
-public class Action
-{
-    public enum ActionType { None, Move, Attack, Ability }
-
-    private ActionType type = ActionType.None;
-    private int abilityNumber = 0;
-
-    public ActionType GetActionType()
-    {
-        return this.type;
-    }
-
-    public void SetActionType(ActionType type)
-    {
-        this.type = type;
-    }
-
-    public int GetAbilityNumber()
-    {
-        if (this.type == ActionType.Ability)
-        {
-            return this.abilityNumber;
-        }
-
-        return -1;
-    }
-
-    public void SetAbilityNumber(int abilityNumber)
-    {
-        if (this.type == ActionType.Ability)
-        {
-            this.abilityNumber = abilityNumber;
-        }
-    }
-}
 
 public abstract class CharacterController : MonoBehaviour
 {
     protected enum TurnPhase { None, Begin, SelectCharacter, SelectMove, SelectAction, SelectTarget, Execution, End }
 
-    public Character characterPrefab;
+    public GameObject characterPrefab;
 
     protected List<Character> friendlies = new List<Character>();
     protected List<Character> enemies = new List<Character>();
-
-    protected TurnPhase phase = TurnPhase.None;
     
+    protected TurnPhase phase = TurnPhase.None;
+
     protected int subjectIndex = -1;
     protected Vector3 moveLocation = Vector3.zero;
     protected Action action = null;
@@ -133,16 +39,18 @@ public abstract class CharacterController : MonoBehaviour
         this.actionCanceled = false;
         this.actionConfirmed = false;
 
-        // Change this to not a singleton reference
-        // GameManager.Singleton.FinishTurn();
+        FindObjectOfType<GameManager>().FinishTurn();
     }
 
-    public void CreateFriendlyCharacters()
+    public void CreateFriendlyCharacters(SpawnPoint spawnPoint)
     {
         for (int i = 0; i < 10; ++i)
         {
-            Character newCharacter = Instantiate(characterPrefab);
-            this.friendlies.Add(newCharacter);
+            GameObject newCharacter = Instantiate(characterPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+            float randomX = Random.Range(-5, 5);
+            float randomZ = Random.Range(-5, 5);
+            newCharacter.transform.Translate(new Vector3(randomX, 0, randomZ));
+            this.friendlies.Add(newCharacter.GetComponent<Character>());
         }
     }
 
@@ -157,7 +65,6 @@ public abstract class CharacterController : MonoBehaviour
     public void Update()
     {
         this.UpdateTurn();
-        this.UpdateVisuals();
     }
 
     protected void UpdateTurn()
@@ -252,32 +159,6 @@ public abstract class CharacterController : MonoBehaviour
             case TurnPhase.End:
                 this.EndTurn();
                 this.phase = TurnPhase.None;
-                break;
-        }
-    }
-
-    protected void UpdateVisuals()
-    {
-        switch (this.phase)
-        {
-            case TurnPhase.Begin:
-                break;
-            case TurnPhase.SelectCharacter:
-            case TurnPhase.SelectMove:
-            case TurnPhase.SelectAction:
-            case TurnPhase.SelectTarget:
-            case TurnPhase.Execution:
-                for (int i = 0; i < this.friendlies.Count; ++i)
-                {
-                    this.friendlies[i].GetComponent<MeshRenderer>().material.SetInt("_Highlighted", 0);
-                }
-
-                if (this.subjectIndex < this.friendlies.Count && this.subjectIndex >= 0)
-                {
-                    this.friendlies[this.subjectIndex].GetComponent<MeshRenderer>().material.SetInt("_Highlighted", 1);
-                }
-                break;
-            case TurnPhase.End:
                 break;
         }
     }
