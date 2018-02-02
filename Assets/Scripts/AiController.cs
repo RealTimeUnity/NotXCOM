@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class AiController : CharacterController
 {
-    protected override Action GetAction()
+    protected override Ability GetAbility()
     {
         return null;
     }
@@ -58,7 +58,7 @@ public class AiController : CharacterController
         if (hurtocity < actor.primary_weapon.Get_Damage() * .20)
         {
             /*movement target selection*/
-            int speedLimit = (int)actor.move_distance_max;
+            //int speedLimit = (int)actor.move_distance_max;
             int distance = 100000;
             Vector3 dir = Vector3.down;
             Vector3 temp = actor.GetComponent<Transform>().position;

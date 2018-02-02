@@ -168,13 +168,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseObject: {fileID: 1145119443434752}
   floaterObject: {fileID: 1825376788684964}
-  isOccupied: 0
   baseRotateSpeed: 10
   floaterRotationX: 1
   floaterRotationY: 0.75
   floaterRotationZ: 0.5
   floaterBobbingSpeed: 0.025
   floaterBobbingDistance: 1
+  isOccupied: 0
 --- !u!212 &212900093506085732
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -5,24 +5,39 @@ using UnityEngine;
 
 public abstract class CharacterController : MonoBehaviour
 {
-    protected enum TurnPhase { None, Begin, SelectCharacter, SelectMove, SelectAction, SelectTarget, Execution, End }
+    protected enum TurnPhase { None, Begin, SelectCharacter, SelectAbility, SelectTarget, Execution, End }
 
     public GameObject characterPrefab;
 
-    protected List<Character> friendlies = new List<Character>();
-    protected List<Character> enemies = new List<Character>();
+    public int maxMajorAbilities;
+    public int maxMinorAbilities;
+    protected int numMajorAbilities;
+    protected int numMinorAbilities;
+
+    protected List<Character> friendlies;
+    protected List<Character> enemies;
     
-    protected TurnPhase phase = TurnPhase.None;
+    protected TurnPhase phase;
+    protected int subjectIndex;
 
-    protected int subjectIndex = -1;
-    protected Vector3 moveLocation = Vector3.zero;
-    protected Action action = null;
-    protected Target target = null;
+    protected Ability ability;
+    protected Target target;
+    protected bool abilityCanceled;
+    protected bool abilityConfirmed;
 
-    // Flow Control Booleans
-    protected bool moveConfirmed = false;
-    protected bool actionCanceled = false;
-    protected bool actionConfirmed = false;
+    public void Start()
+    {
+        this.friendlies = new List<Character>();
+        this.enemies = new List<Character>();
+        this.phase = TurnPhase.None;
+        this.subjectIndex = -1;
+        this.ability = null;
+        this.target = null;
+        this.abilityCanceled = false;
+        this.abilityConfirmed = false;
+        this.numMajorAbilities = maxMajorAbilities;
+        this.numMinorAbilities = maxMinorAbilities;
+    }
 
     public void StartTurn()
     {
@@ -32,18 +47,13 @@ public abstract class CharacterController : MonoBehaviour
     protected void EndTurn()
     {
         this.subjectIndex = -1;
-        this.moveLocation = Vector3.zero;
-        this.action = null;
-        this.target = null;
-        this.moveConfirmed = false;
-        this.actionCanceled = false;
-        this.actionConfirmed = false;
 
         FindObjectOfType<GameManager>().FinishTurn();
     }
 
     public void CreateFriendlyCharacters(SpawnPoint spawnPoint)
     {
+        this.friendlies = new List<Character>();
         for (int i = 0; i < 10; ++i)
         {
             GameObject newCharacter = Instantiate(characterPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
@@ -67,6 +77,26 @@ public abstract class CharacterController : MonoBehaviour
         this.UpdateTurn();
     }
 
+    protected bool IsAbilityExecutable(Ability ability)
+    {
+        bool result = false;
+        Ability.AbilityType abilityType = ability.GetAbilityType();
+        if (abilityType == Ability.AbilityType.Major &&
+            this.numMajorAbilities > 0)
+        {
+            --this.numMajorAbilities;
+            result = true;
+        }
+        if (abilityType == Ability.AbilityType.Minor &&
+            this.numMinorAbilities > 0)
+        {
+            --this.numMinorAbilities;
+            result = true;
+        }
+
+        return result;
+    }
+
     protected void UpdateTurn()
     {
         switch (this.phase)
@@ -78,83 +108,66 @@ public abstract class CharacterController : MonoBehaviour
                 this.subjectIndex += 1;
                 if (this.subjectIndex < this.friendlies.Count)
                 {
-                    this.phase = TurnPhase.SelectMove;
+                    this.phase = TurnPhase.SelectAbility;
                 }
                 else
                 {
                     this.phase = TurnPhase.End;
                 }
                 break;
-            case TurnPhase.SelectMove:
-                if (this.moveConfirmed)
+            case TurnPhase.SelectAbility:
+                Ability ability = GetAbility();
+                if (ability != null && this.IsAbilityExecutable(ability))
                 {
-                    if (this.moveLocation != Vector3.zero)
-                    {
-                        this.friendlies[this.subjectIndex].MoveSelf(this.moveLocation);
-                        this.phase = TurnPhase.SelectAction;
-                    }
-                    else
-                    {
-                        this.moveConfirmed = false;
-                    }
-                }
-                else
-                {
-                    Vector3 location = GetLocationSelection();
-                    if (location != Vector3.zero)
-                    {
-                        this.moveLocation = location;
-                    }
-                }
-                break;
-            case TurnPhase.SelectAction:
-                Action action = GetAction();
-                if (action != null)
-                {
-                    this.action = action;
+                    this.ability = ability;
                     this.phase = TurnPhase.SelectTarget;
                 }
                 break;
             case TurnPhase.SelectTarget:
-                if (this.actionCanceled)
+                if (this.abilityCanceled)
                 {
-                    this.actionCanceled = false;
-                    this.actionConfirmed = false;
-                    this.action = null;
-                    this.phase = TurnPhase.SelectAction;
+                    this.ability = null;
+                    this.target = null;
+                    this.abilityCanceled = false;
+                    this.abilityConfirmed = false;
+                    this.phase = TurnPhase.SelectAbility;
                 }
-                else if (this.actionConfirmed)
+                else if (this.abilityConfirmed)
                 {
-                    this.phase = TurnPhase.Execution;
+                    if (this.target != null)
+                    {
+                        this.phase = TurnPhase.Execution;
+                    }
+                    else
+                    {
+                        this.abilityConfirmed = false;
+                    }
                 }
                 else
                 {
                     Target target = GetTargetSelection();
-                    if (target != null)
+                    if (target != null && this.ability.IsTargetInRange(this.friendlies[this.subjectIndex], target))
                     {
                         this.target = target;
                     }
                 }
                 break;
             case TurnPhase.Execution:
-                switch (this.action.GetActionType())
+                this.ability.Execute(this.target);
+                if (this.numMajorAbilities + this.numMinorAbilities > 0)
                 {
-                    case Action.ActionType.Move:
-                        this.friendlies[this.subjectIndex].MoveSelf(this.target.GetLocationTarget());
-                        break;
-                    case Action.ActionType.Attack:
-                        // this.friendlies[this.subjectIndex].attack(this.target.GetCharacter());
-                        break;
+                    this.phase = TurnPhase.SelectAbility;
                 }
-
-                this.moveLocation = Vector3.zero;
-                this.action = null;
+                else
+                {
+                    this.numMajorAbilities = maxMajorAbilities;
+                    this.numMinorAbilities = maxMinorAbilities;
+                    this.phase = TurnPhase.SelectCharacter;
+                }
+                this.ability = null;
                 this.target = null;
-                this.moveConfirmed = false;
-                this.actionCanceled = false;
-                this.actionConfirmed = false;
-
-                this.phase = TurnPhase.SelectCharacter;
+                this.abilityCanceled = false;
+                this.abilityConfirmed = false;
                 break;
             case TurnPhase.End:
                 this.EndTurn();
@@ -163,29 +176,10 @@ public abstract class CharacterController : MonoBehaviour
         }
     }
 
-    protected void SetTargetType(Target target)
-    {
-        switch (this.action.GetActionType())
-        {
-            case Action.ActionType.Move:
-                target.SetTargetType(Target.TargetType.Location);
-                break;
-            case Action.ActionType.Attack:
-                target.SetTargetType(Target.TargetType.Enemy);  // selectedCharacter.GetAttackTargetType()
-                break;
-            case Action.ActionType.Ability:
-                target.SetTargetType(Target.TargetType.Friendly);  // selectedCharacter.GetAbilityTargetType(actionAbilityNumber)
-                break;
-            case Action.ActionType.None:
-                StartTurn();
-                break;
-        }
-    }
-
     protected Target GetTargetSelection()
     {
         Target target = new Target();
-        this.SetTargetType(target);
+        target.SetTargetType(this.ability.targetType);
 
         Character character = null;
         Vector3 location = Vector3.zero;
@@ -227,22 +221,17 @@ public abstract class CharacterController : MonoBehaviour
         return null;
     }
 
-    public void ConfirmMove()
+    public void CancelAbility()
     {
-        this.moveConfirmed = true;
+        this.abilityCanceled = true;
     }
 
-    public void CancelAction()
+    public void ConfirmAbility()
     {
-        this.actionCanceled = true;
+        this.abilityConfirmed = true;
     }
 
-    public void ConfirmAction()
-    {
-        this.actionConfirmed = true;
-    }
-
-    protected abstract Action GetAction();
+    protected abstract Ability GetAbility();
 
     protected abstract Vector3 GetLocationSelection();
 

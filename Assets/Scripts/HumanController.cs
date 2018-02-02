@@ -8,48 +8,29 @@ using UnityEngine.EventSystems;
 public class HumanController : CharacterController
 {
     public GameObject ActionConfirmUI;
-    public GameObject MoveConfirmUI;
     public GameObject CombatUI;
     public GameObject locationPointer;
 
-    protected Action selectedAction = null;
-
-    public void SelectAttackAction()
-    {
-        Action action = new Action();
-        action.SetActionType(Action.ActionType.Attack);
-        this.selectedAction = action;
-    }
-
+    protected Ability selectedAbility = null;
+    
     public void SelectMoveAction()
     {
-        Action action = new Action();
-        action.SetActionType(Action.ActionType.Move);
-        this.selectedAction = action;
-    }
-
-    public void SelectAbilityOneAction()
-    {
-        Action action = new Action();
-        action.SetActionType(Action.ActionType.Ability);
-        action.SetAbilityNumber(0);
-        this.selectedAction = action;
-    }
-
-    public void SelectAbilityTwoAction()
-    {
-        Action action = new Action();
-        action.SetActionType(Action.ActionType.Ability);
-        action.SetAbilityNumber(1);
-        this.selectedAction = action;
-    }
-
-    protected override Action GetAction()
-    {
-        if (this.selectedAction != null)
+        for (int i = 0; i < this.friendlies[this.subjectIndex].abilities.Count; ++i)
         {
-            Action result = this.selectedAction;
-            this.selectedAction = null;
+            if (this.friendlies[this.subjectIndex].abilities[i] is MoveAbility)
+            {
+                this.selectedAbility = this.friendlies[this.subjectIndex].abilities[i];
+            }
+        }
+    }
+    
+    protected override Ability GetAbility()
+    {
+        if (this.selectedAbility != null)
+        {
+            Ability result = Instantiate(this.selectedAbility);
+            result.Initialize(this.friendlies[this.subjectIndex]);
+            this.selectedAbility = null;
             return result;
         }
 
@@ -133,8 +114,7 @@ public class HumanController : CharacterController
             case TurnPhase.Begin:
                 break;
             case TurnPhase.SelectCharacter:
-            case TurnPhase.SelectMove:
-            case TurnPhase.SelectAction:
+            case TurnPhase.SelectAbility:
             case TurnPhase.SelectTarget:
             case TurnPhase.Execution:
                 for (int i = 0; i < this.friendlies.Count; ++i)
@@ -162,22 +142,14 @@ public class HumanController : CharacterController
             case TurnPhase.Execution:
             case TurnPhase.End:
                 this.ActionConfirmUI.SetActive(false);
-                this.MoveConfirmUI.SetActive(false);
                 this.CombatUI.SetActive(false);
                 break;
-            case TurnPhase.SelectMove:
+            case TurnPhase.SelectAbility:
                 this.ActionConfirmUI.SetActive(false);
-                this.MoveConfirmUI.SetActive(true);
-                this.CombatUI.SetActive(false);
-                break;
-            case TurnPhase.SelectAction:
-                this.ActionConfirmUI.SetActive(false);
-                this.MoveConfirmUI.SetActive(false);
                 this.CombatUI.SetActive(true);
                 break;
             case TurnPhase.SelectTarget:
                 this.ActionConfirmUI.SetActive(true);
-                this.MoveConfirmUI.SetActive(false);
                 this.CombatUI.SetActive(false);
                 break;
         }
