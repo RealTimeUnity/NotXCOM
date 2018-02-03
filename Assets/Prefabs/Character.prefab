@@ -98,6 +98,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   primary_weapon: {fileID: 0}
   health: 1000
+  maxMajorAbilities: 0
+  maxMinorAbilities: 3
+  abilityPrefabs:
+  - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
+  - {fileID: 114002740424537848, guid: c15698dcd2cdcef4389058b8ec12cf2c, type: 2}
   abilities:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
 --- !u!136 &136203277895519516

@@ -6,12 +6,17 @@ using UnityEngine;
 public abstract class Ability : MonoBehaviour
 {
     public enum AbilityType { None, Major, Minor, Passive }
+    public enum UseType { NumberPerTurn, AbsoluteNumber }
 
     public Target.TargetType targetType;
     public AbilityType type = AbilityType.None;
+    public UseType useType = UseType.NumberPerTurn;
     public int range;
+    public int uses;
+    public string abilityName;
 
     protected Character owner;
+    protected int maxUses;
 
     public AbilityType GetAbilityType()
     {
@@ -21,6 +26,15 @@ public abstract class Ability : MonoBehaviour
     public void Initialize(Character owner)
     {
         this.owner = owner;
+        this.maxUses = uses;
+    }
+
+    public void ResetCount()
+    {
+        if (this.useType == UseType.NumberPerTurn)
+        {
+            this.uses = maxUses;
+        }
     }
 
     public bool IsTargetInRange(Character startingPoint, Target target)
@@ -45,5 +59,8 @@ public abstract class Ability : MonoBehaviour
         return result;
     }
 
-    public abstract void Execute(Target target);
+    public virtual void Execute(Target target)
+    {
+        --this.uses;
+    }
 }

@@ -7,34 +7,40 @@ using UnityEngine.EventSystems;
 
 public class HumanController : CharacterController
 {
-    public GameObject ActionConfirmUI;
-    public GameObject CombatUI;
-    public GameObject locationPointer;
+    public GameObject actionConfirmUI;
+    public GameObject combatUI;
+    public GameObject locationIndicator;
+    public GameObject rangeIndicator;
+    public GameObject characterIndicator;
 
-    protected Ability selectedAbility = null;
+    protected string selectedAbilityName = null;
     
-    public void SelectMoveAction()
+    public void SelectMoveAbility()
     {
-        for (int i = 0; i < this.friendlies[this.subjectIndex].abilities.Count; ++i)
+        if (this.friendlies[this.subjectIndex].HasAbility("move"))
         {
-            if (this.friendlies[this.subjectIndex].abilities[i] is MoveAbility)
-            {
-                this.selectedAbility = this.friendlies[this.subjectIndex].abilities[i];
-            }
+            this.selectedAbilityName = "move";
         }
     }
-    
-    protected override Ability GetAbility()
+
+    public void SelectCharacterAbility()
     {
-        if (this.selectedAbility != null)
+        if (this.friendlies[this.subjectIndex].HasAbility("character"))
         {
-            Ability result = Instantiate(this.selectedAbility);
-            result.Initialize(this.friendlies[this.subjectIndex]);
-            this.selectedAbility = null;
-            return result;
+            this.selectedAbilityName = "character";
+        }
+    }
+
+    protected override string GetAbilityName()
+    {
+        string result = null;
+        if (this.selectedAbilityName != null)
+        {
+            result = this.selectedAbilityName;
+            this.selectedAbilityName = null;
         }
 
-        return null;
+        return result;
     }
 
     protected override Vector3 GetLocationSelection()
@@ -109,26 +115,60 @@ public class HumanController : CharacterController
 
     protected void UpdateVisuals()
     {
-        switch (this.phase)
+        // Subject Highlighting
+        if (this.subjectIndex != -1)
         {
-            case TurnPhase.Begin:
-                break;
-            case TurnPhase.SelectCharacter:
-            case TurnPhase.SelectAbility:
-            case TurnPhase.SelectTarget:
-            case TurnPhase.Execution:
-                for (int i = 0; i < this.friendlies.Count; ++i)
-                {
-                    this.friendlies[i].GetComponent<MeshRenderer>().material.SetInt("_Highlighted", 0);
-                }
+            for (int i = 0; i < this.friendlies.Count; ++i)
+            {
+                this.friendlies[i].GetComponent<MeshRenderer>().material.SetInt("_Highlighted", 0);
+            }
 
-                if (this.subjectIndex < this.friendlies.Count && this.subjectIndex >= 0)
-                {
-                    this.friendlies[this.subjectIndex].GetComponent<MeshRenderer>().material.SetInt("_Highlighted", 1);
-                }
-                break;
-            case TurnPhase.End:
-                break;
+            if (this.subjectIndex < this.friendlies.Count && this.subjectIndex >= 0)
+            {
+                this.friendlies[this.subjectIndex].GetComponent<MeshRenderer>().material.SetInt("_Highlighted", 1);
+                this.friendlies[this.subjectIndex].GetComponent<MeshRenderer>().material.SetColor("_OutlineColor", new Color(0, 1, 0));
+            }
+        }
+
+        // Range Indicator
+        if (this.abilityName != null)
+        {
+            this.rangeIndicator.transform.localScale = new Vector3(
+                this.friendlies[this.subjectIndex].GetAbility(this.abilityName).range, 
+                this.friendlies[this.subjectIndex].GetAbility(this.abilityName).range, 
+                this.friendlies[this.subjectIndex].GetAbility(this.abilityName).range);
+
+            NavMeshHit nhit;
+            NavMesh.SamplePosition(this.friendlies[this.subjectIndex].transform.position, out nhit, 10.0f, NavMesh.AllAreas);
+
+            this.rangeIndicator.transform.position = nhit.position;
+            this.rangeIndicator.SetActive(true);
+        }
+        else
+        {
+            this.rangeIndicator.SetActive(false);
+        }
+
+        // Target Indicator
+        if (this.target != null)
+        {
+            if (this.target.GetTargetType() == Target.TargetType.Location)
+            {
+                this.locationIndicator.transform.position = this.target.GetLocationTarget();
+                this.locationIndicator.SetActive(true);
+                this.characterIndicator.SetActive(false);
+            }
+            else if (this.target.GetTargetType() != Target.TargetType.None)
+            {
+                this.characterIndicator.transform.position = this.target.GetCharacterTarget().transform.position;
+                this.characterIndicator.SetActive(true);
+                this.locationIndicator.SetActive(false);
+            }
+        }
+        else
+        {
+            this.locationIndicator.SetActive(false);
+            this.characterIndicator.SetActive(false);
         }
     }
 
@@ -141,16 +181,16 @@ public class HumanController : CharacterController
             case TurnPhase.SelectCharacter:
             case TurnPhase.Execution:
             case TurnPhase.End:
-                this.ActionConfirmUI.SetActive(false);
-                this.CombatUI.SetActive(false);
+                this.actionConfirmUI.SetActive(false);
+                this.combatUI.SetActive(false);
                 break;
             case TurnPhase.SelectAbility:
-                this.ActionConfirmUI.SetActive(false);
-                this.CombatUI.SetActive(true);
+                this.actionConfirmUI.SetActive(false);
+                this.combatUI.SetActive(true);
                 break;
             case TurnPhase.SelectTarget:
-                this.ActionConfirmUI.SetActive(true);
-                this.CombatUI.SetActive(false);
+                this.actionConfirmUI.SetActive(true);
+                this.combatUI.SetActive(false);
                 break;
         }
     }

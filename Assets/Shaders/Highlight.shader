@@ -9,7 +9,7 @@ Shader "Custom/Cel" {
 		_SpecularColor("SpecularColor", Color) = (1, 1, 1, 1)
 		_Shininess("Shininess", float) = 1
 		_OutlineColor("OutlineColor", Color) = (0, 0, 0, 0)
-		_OutlineScale("OutlineScale", float) = 1.01
+		_OutlineScale("OutlineScale", float) = 1.1
 		_Highlighted("HighLighted", int) = 1
 	}
 		SubShader

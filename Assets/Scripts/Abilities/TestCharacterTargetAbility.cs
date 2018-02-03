@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MoveAbility : Ability
+public class TestCharacterTargetAbility : Ability
 {
     public override void Execute(Target target)
     {
         base.Execute(target);
-        Vector3 destination = target.GetLocationTarget();
-        
+        Character destination = target.GetCharacterTarget();
+
         NavMeshAgent agent = this.owner.GetComponent<NavMeshAgent>();
-        agent.SetDestination(destination);
+        agent.SetDestination(destination.transform.position);
     }
 }

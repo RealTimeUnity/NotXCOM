@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class AiController : CharacterController
 {
-    protected override Ability GetAbility()
+    protected override string GetAbilityName()
     {
         return null;
     }

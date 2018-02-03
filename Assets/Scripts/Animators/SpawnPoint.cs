@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnPoint : FloaterWithBase {
+public class SpawnPoint : MonoBehaviour {
+    [HideInInspector]
     public bool isOccupied;
 }

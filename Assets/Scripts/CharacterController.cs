@@ -9,18 +9,13 @@ public abstract class CharacterController : MonoBehaviour
 
     public GameObject characterPrefab;
 
-    public int maxMajorAbilities;
-    public int maxMinorAbilities;
-    protected int numMajorAbilities;
-    protected int numMinorAbilities;
-
     protected List<Character> friendlies;
     protected List<Character> enemies;
     
     protected TurnPhase phase;
     protected int subjectIndex;
 
-    protected Ability ability;
+    protected string abilityName;
     protected Target target;
     protected bool abilityCanceled;
     protected bool abilityConfirmed;
@@ -31,12 +26,10 @@ public abstract class CharacterController : MonoBehaviour
         this.enemies = new List<Character>();
         this.phase = TurnPhase.None;
         this.subjectIndex = -1;
-        this.ability = null;
+        this.abilityName = null;
         this.target = null;
         this.abilityCanceled = false;
         this.abilityConfirmed = false;
-        this.numMajorAbilities = maxMajorAbilities;
-        this.numMinorAbilities = maxMinorAbilities;
     }
 
     public void StartTurn()
@@ -58,8 +51,8 @@ public abstract class CharacterController : MonoBehaviour
         {
             GameObject newCharacter = Instantiate(characterPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
             float randomX = Random.Range(-5, 5);
-            float randomZ = Random.Range(-5, 5);
-            newCharacter.transform.Translate(new Vector3(randomX, 0, randomZ));
+            float randomY = Random.Range(-5, 5);
+            newCharacter.transform.Translate(new Vector3(randomX, randomY, 0));
             this.friendlies.Add(newCharacter.GetComponent<Character>());
         }
     }
@@ -75,26 +68,6 @@ public abstract class CharacterController : MonoBehaviour
     public void Update()
     {
         this.UpdateTurn();
-    }
-
-    protected bool IsAbilityExecutable(Ability ability)
-    {
-        bool result = false;
-        Ability.AbilityType abilityType = ability.GetAbilityType();
-        if (abilityType == Ability.AbilityType.Major &&
-            this.numMajorAbilities > 0)
-        {
-            --this.numMajorAbilities;
-            result = true;
-        }
-        if (abilityType == Ability.AbilityType.Minor &&
-            this.numMinorAbilities > 0)
-        {
-            --this.numMinorAbilities;
-            result = true;
-        }
-
-        return result;
     }
 
     protected void UpdateTurn()
@@ -116,17 +89,17 @@ public abstract class CharacterController : MonoBehaviour
                 }
                 break;
             case TurnPhase.SelectAbility:
-                Ability ability = GetAbility();
-                if (ability != null && this.IsAbilityExecutable(ability))
+                string abilityName = GetAbilityName();
+                if (abilityName != null && this.friendlies[this.subjectIndex].IsAbilityExecutable(abilityName))
                 {
-                    this.ability = ability;
+                    this.abilityName = abilityName;
                     this.phase = TurnPhase.SelectTarget;
                 }
                 break;
             case TurnPhase.SelectTarget:
                 if (this.abilityCanceled)
                 {
-                    this.ability = null;
+                    this.abilityName = null;
                     this.target = null;
                     this.abilityCanceled = false;
                     this.abilityConfirmed = false;
@@ -146,25 +119,26 @@ public abstract class CharacterController : MonoBehaviour
                 else
                 {
                     Target target = GetTargetSelection();
-                    if (target != null && this.ability.IsTargetInRange(this.friendlies[this.subjectIndex], target))
+                    if (target != null && this.friendlies[this.subjectIndex].GetAbility(this.abilityName).IsTargetInRange(this.friendlies[this.subjectIndex], target))
                     {
                         this.target = target;
                     }
                 }
                 break;
             case TurnPhase.Execution:
-                this.ability.Execute(this.target);
-                if (this.numMajorAbilities + this.numMinorAbilities > 0)
+                this.friendlies[this.subjectIndex].ExecuteAbility(this.abilityName, this.target);
+
+                if (this.friendlies[this.subjectIndex].HasMoreAbilities())
                 {
                     this.phase = TurnPhase.SelectAbility;
                 }
                 else
                 {
-                    this.numMajorAbilities = maxMajorAbilities;
-                    this.numMinorAbilities = maxMinorAbilities;
+                    this.friendlies[subjectIndex].ResetTurn();
                     this.phase = TurnPhase.SelectCharacter;
                 }
-                this.ability = null;
+
+                this.abilityName = null;
                 this.target = null;
                 this.abilityCanceled = false;
                 this.abilityConfirmed = false;
@@ -179,7 +153,7 @@ public abstract class CharacterController : MonoBehaviour
     protected Target GetTargetSelection()
     {
         Target target = new Target();
-        target.SetTargetType(this.ability.targetType);
+        target.SetTargetType(this.friendlies[this.subjectIndex].GetAbility(this.abilityName).targetType);
 
         Character character = null;
         Vector3 location = Vector3.zero;
@@ -231,7 +205,7 @@ public abstract class CharacterController : MonoBehaviour
         this.abilityConfirmed = true;
     }
 
-    protected abstract Ability GetAbility();
+    protected abstract string GetAbilityName();
 
     protected abstract Vector3 GetLocationSelection();
 
