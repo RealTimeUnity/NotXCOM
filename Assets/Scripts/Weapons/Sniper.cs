@@ -6,8 +6,9 @@ public class Sniper : Weapon {
 
 	// Use this for initialization
 	void Start () {
-        Range = 100;
+        range = 100;
         Damage = 40;
+        abilityName = "Sniper";
     }
 	
 	// Update is called once per frame
