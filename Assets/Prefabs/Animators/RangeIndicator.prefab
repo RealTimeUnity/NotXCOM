@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4345442932223324}
+  - component: {fileID: 114039920953547902}
   m_Layer: 0
   m_Name: RangeIndicator
   m_TagString: Untagged
@@ -69,6 +70,18 @@ Transform:
   m_Father: {fileID: 4345442932223324}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &114039920953547902
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1040676857924758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 536201087eb5786419491f06365f666c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 150
 --- !u!212 &212164412337630528
 SpriteRenderer:
   m_ObjectHideFlags: 1
