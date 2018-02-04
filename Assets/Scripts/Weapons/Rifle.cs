@@ -6,8 +6,9 @@ public class Rifle : Weapon {
 
 	// Use this for initialization
 	void Start () {
-        Range = 50;
+        range = 50;
         Damage = 15;
+        abilityName = "Rifle";
     }
 	
 	// Update is called once per frame

@@ -6,8 +6,9 @@ public class Flamethrower : Weapon {
 
 	// Use this for initialization
 	void Start () {
-        Range = 15;
+        range = 15;
         Damage = 60;
+        abilityName = "Flamethrower";
     }
 	
 	// Update is called once per frame
