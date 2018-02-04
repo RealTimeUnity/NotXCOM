@@ -4,44 +4,141 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Character : MonoBehaviour {
-    
+
     public Weapon primary_weapon;
-    public float move_distance_max;
-    public float move_distance_left;
+
     public float health;
-    private bool can_action;//if move, attack, and abilities are used this is false
-    public abilityParent ability1;
-    public abilityParent ability2;
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    public int maxMajorAbilities;
+    public int maxMinorAbilities;
+    protected int numMajorAbilities;
+    protected int numMinorAbilities;
+
+    public List<Ability> abilityPrefabs;
+
+    [HideInInspector]
+    public List<Ability> abilities;
+
+    void Start()
+    {
+        this.abilities = new List<Ability>();
+        for (int i = 0; i < this.abilityPrefabs.Count; ++i)
+        {
+            Ability ability = Instantiate(abilityPrefabs[i], this.gameObject.transform);
+            ability.Initialize(this);
+            this.abilities.Add(ability);
+        }
+        this.ResetTurn();
+    }
+
+    public bool HasAbility(string abilityName)
+    {
+        bool result = false;
+        for (int i = 0; i < this.abilities.Count; i++)
+        {
+            if (this.abilities[i].abilityName == abilityName)
+            {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public Ability GetAbility(string abilityName)
+    {
+        Ability result = null;
+        for (int i = 0; i < this.abilities.Count; i++)
+        {
+            if (this.abilities[i].abilityName == abilityName)
+            {
+                result = this.abilities[i];
+            }
+        }
+
+        return result;
+    }
+
+    public bool IsAbilityExecutable(string abilityName)
+    {
+        Ability ability = this.GetAbility(abilityName);
+        bool result = false;
+        Ability.AbilityType abilityType = ability.GetAbilityType();
+
+        if (ability.uses > 0)
+        {
+            if (abilityType == Ability.AbilityType.Major &&
+            this.numMajorAbilities > 0)
+            {
+                result = true;
+            }
+            if (abilityType == Ability.AbilityType.Minor &&
+                this.numMinorAbilities > 0)
+            {
+                result = true;
+            }
+        }
+
+        return result;
+    }
+
+    public bool HasMoreAbilities()
+    {
+        bool result = false;
+
+        for (int i = 0; i < this.abilities.Count; ++i)
+        {
+            if (this.abilities[i].GetAbilityType() == Ability.AbilityType.Major)
+            {
+                if (this.abilities[i].uses > 0 && this.numMajorAbilities > 0)
+                {
+                    result = true;
+                    break;
+                }
+            }
+            else
+            {
+                if (this.abilities[i].uses > 0 && this.numMinorAbilities > 0)
+                {
+                    result = true;
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public void ResetTurn()
+    {
+        for (int i = 0; i < this.abilities.Count; ++i)
+        {
+            this.abilities[i].ResetCount();
+        }
+
+        this.numMajorAbilities = maxMajorAbilities;
+        this.numMinorAbilities = maxMinorAbilities;
+    }
+
+    public void ExecuteAbility(string abilityName, Target target)
+    {
+        Ability ability = this.GetAbility(abilityName);
+        Ability.AbilityType abilityType = ability.GetAbilityType();
+        if (abilityType == Ability.AbilityType.Major)
+        {
+            --this.numMajorAbilities;
+        }
+        if (abilityType == Ability.AbilityType.Minor)
+        {
+            --this.numMinorAbilities;
+        }
+
+        ability.Execute(target);
+    }
 
     public void TakeDamage(int damage)
     {
         health -= damage;
-    }
-
-    public void MoveSelf(Vector3 loc)//vector3 location where we want to go
-    {
-        //check to make sure its within max dist - dist left this turn
-        GetComponent<NavMeshAgent>().SetDestination(loc);
-        //set target for pathfinder
-    }
-
-    public void Attack(Target enemy)//a target object that we want to hit
-    {
-        //activte TakeDamage func for enemy
-        //
-    }
-
-    public void UseAbility(int abilityNum)//int param passed 
-    {
-
     }
 }

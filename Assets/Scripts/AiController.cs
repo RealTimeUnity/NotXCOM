@@ -6,15 +6,7 @@ using UnityEngine.AI;
 
 public class AiController : CharacterController
 {
-
-    public Character enemy1;
-    public Character enemy2;
-    public Character enemy3;
-    public Character p1;
-    public Character p2;
-    public Character p3;
-
-    protected override Action GetAction()
+    protected override string GetAbilityName()
     {
         return null;
     }
@@ -33,7 +25,78 @@ public class AiController : CharacterController
     {
         return null;
     }
-    
+    protected int magicalHurtFormula(Character actor, Character victim)
+    {
+        /*magical formula used to determine the value of shooting at each target*/
+        int hurtValue = 0;
+        int accuracy=actor.primary_weapon.Target(victim);
+        int damage = actor.primary_weapon.Get_Damage();
+        hurtValue = accuracy * damage;
+        if (damage > victim.health)
+        {
+            hurtValue=hurtValue*2+10;
+        }
+        return (hurtValue);
+    }
+    protected Character selectVictim(Character actor)
+    {
+        /*this code will select the best target for each enemy to shoot at
+         * If no target is worth shooting at, it will move to the closest enemy
+         * defaults to enemy[0] for convenience*/
+
+        Character tempVictim=enemies[0];
+        int hurtocity = 0;
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            int tempVal = magicalHurtFormula(actor, enemies[i]);
+            if (tempVal > hurtocity)
+            {
+                hurtocity = tempVal;
+                tempVictim = enemies[i];
+            }
+        }
+        if (hurtocity < actor.primary_weapon.Get_Damage() * .20)
+        {
+            /*movement target selection*/
+            //int speedLimit = (int)actor.move_distance_max;
+            int distance = 100000;
+            Vector3 dir = Vector3.down;
+            Vector3 temp = actor.GetComponent<Transform>().position;
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                int tempRange = (int)Vector3.Distance(temp, enemies[i].GetComponent<Transform>().position);
+                if (tempRange < distance)
+                {
+                    distance = tempRange;
+                    dir = enemies[i].GetComponent<Transform>().position;
+                    tempVictim = enemies[i];
+                }
+            }
+        }
+        return (tempVictim);
+
+    }
+    protected bool attackingOrMoving(Character actor)
+    {
+        /*true is attack, false is moving*/
+        int hurtocity = 0;
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            int tempVal = magicalHurtFormula(actor, enemies[i]);
+            if (tempVal > hurtocity)
+            {
+                hurtocity = tempVal;
+            }
+        }
+        if (hurtocity < actor.primary_weapon.Get_Damage() * .20)
+        {
+            return (true);
+        }
+        else
+        {
+            return (false);
+        }
+    }
     /*public void Update()
     {
         int range = 10000;
