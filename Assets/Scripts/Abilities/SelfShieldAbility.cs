@@ -14,10 +14,15 @@ public class SelfShield : Ability {
     }
     public void Update()
     {
+
         if (CurrentShieldHealth==0)
         {
             ShieldActive = false;
         }
         //check if enemy turn over then set CurrentShieldHealth to 0
+        if (/*owner.owner.*/true)
+        {
+
+        }
     }
 }

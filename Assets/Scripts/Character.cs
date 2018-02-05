@@ -7,7 +7,10 @@ public class Character : MonoBehaviour {
 
     public Weapon primary_weapon;
 
-    public float health;
+    public float Currenthealth;
+    public float MaxHealth;
+
+    public CharacterController owner;//important
 
     public int maxMajorAbilities;
     public int maxMinorAbilities;
@@ -150,6 +153,6 @@ public class Character : MonoBehaviour {
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
+        Currenthealth -= damage;
     }
 }
