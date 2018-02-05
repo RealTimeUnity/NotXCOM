@@ -8,6 +8,8 @@ public class CameraController : MonoBehaviour {
     private float cameraMoveSpeed;
     [SerializeField]
     private float cameraRotationSpeed;
+    [SerializeField]
+    private float cameraZoomSpeed;
 
     public void FixedUpdate()
     {
@@ -15,26 +17,33 @@ public class CameraController : MonoBehaviour {
 
         Vector3 forward = Vector3.Cross(Vector3.up, transform.right);
 
-        if(mousePosition.x > 0.95f)
-        {
-            transform.position += transform.right * cameraMoveSpeed * Time.deltaTime;
-        }
-        if (mousePosition.x < 0.05f)
-        {
-            transform.position -= transform.right * cameraMoveSpeed * Time.deltaTime;
-        }
-        if (mousePosition.y > 0.95f)
-        {
-            transform.position -= forward * cameraMoveSpeed * Time.deltaTime;
-        }
-        if (mousePosition.y < 0.05f)
-        {
-            transform.position += forward * cameraMoveSpeed * Time.deltaTime;
-        }
+        //if(mousePosition.x > 0.95f)
+        //{
+        //    transform.position += transform.right * cameraMoveSpeed * Time.deltaTime;
+        //}
+        //if (mousePosition.x < 0.05f)
+        //{
+        //    transform.position -= transform.right * cameraMoveSpeed * Time.deltaTime;
+        //}
+        //if (mousePosition.y > 0.95f)
+        //{
+        //    transform.position -= forward * cameraMoveSpeed * Time.deltaTime;
+        //}
+        //if (mousePosition.y < 0.05f)
+        //{
+        //    transform.position += forward * cameraMoveSpeed * Time.deltaTime;
+        //}
+
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
+        transform.position += transform.right * cameraMoveSpeed * Time.deltaTime * x;
+        transform.position += forward * cameraMoveSpeed * Time.deltaTime * -y;
 
         if (Input.GetKey(KeyCode.Q))
             transform.Rotate(Vector3.up * -cameraRotationSpeed * Time.deltaTime, Space.World);
         if (Input.GetKey(KeyCode.E))
             transform.Rotate(Vector3.up * cameraRotationSpeed * Time.deltaTime, Space.World);
+
+        transform.position += transform.forward * Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime * cameraZoomSpeed;
     }
 }
