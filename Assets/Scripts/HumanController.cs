@@ -148,16 +148,12 @@ public class HumanController : CharacterController
         // Range Indicator
         if (this.abilityName != null)
         {
-            this.rangeIndicator.transform.localScale = new Vector3(
-                this.friendlies[this.subjectIndex].GetAbility(this.abilityName).range, 
-                this.friendlies[this.subjectIndex].GetAbility(this.abilityName).range, 
-                this.friendlies[this.subjectIndex].GetAbility(this.abilityName).range);
 
             NavMeshHit nhit;
             NavMesh.SamplePosition(this.friendlies[this.subjectIndex].transform.position, out nhit, 10.0f, NavMesh.AllAreas);
 
             this.rangeIndicator.transform.position = nhit.position;
-            this.rangeIndicator.SetActive(true);
+            this.rangeIndicator.GetComponent<RangeIndicator>().Initialize(this.friendlies[this.subjectIndex].GetAbility(this.abilityName).range);
         }
         else
         {

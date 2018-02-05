@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour {
+public class Weapon : Ability {
 
-    protected float Range;
     protected int Damage;
 
     void Start()//Initializes stats
@@ -15,17 +14,18 @@ public class Weapon : MonoBehaviour {
 	}
 
 	public float Get_Range(){
-		return Range;
+		return range;
 	}
 
-	public int Target(Character c){
-		int accuracy = 0;
-		float dis = Vector3.Distance(this.transform.position, c.transform.position);
-		if(dis > Range)
+	public int Target(Character startingPoint, Target target)
+    {
+        int accuracy = 0;
+		if(!IsTargetInRange(startingPoint, target))
 		{
-			if(dis < (2 * Range))
+            float distance = Vector3.Distance(startingPoint.transform.position, target.GetCharacterTarget().transform.position);
+            if (distance < (2 * range))
 			{
-				accuracy = (int)(((dis % Range) / Range) * 100);
+				accuracy = (int)(((distance % range) / range) * 100);
 			}
 		}
 		else {

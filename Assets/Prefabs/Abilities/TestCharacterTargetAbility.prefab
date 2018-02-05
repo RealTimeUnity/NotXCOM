@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05bfd9104dabecf40a2261e9a852f9d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetType: 4
+  targetType: 3
   type: 2
   useType: 0
   range: 75
