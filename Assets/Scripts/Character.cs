@@ -19,6 +19,9 @@ public class Character : MonoBehaviour {
     [HideInInspector]
     public List<Ability> abilities;
 
+    private NavMeshAgent agent;
+    private Animator anim;
+
     void Start()
     {
         this.abilities = new List<Ability>();
@@ -29,6 +32,14 @@ public class Character : MonoBehaviour {
             this.abilities.Add(ability);
         }
         this.ResetTurn();
+
+        agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
+    }
+
+    public void Update()
+    {
+        anim.SetFloat("Forward", agent.velocity.magnitude / 3.0f);                
     }
 
     public bool HasAbility(string abilityName)
