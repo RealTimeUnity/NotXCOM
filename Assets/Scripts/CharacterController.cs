@@ -9,11 +9,11 @@ public abstract class CharacterController : MonoBehaviour
 
     public GameObject characterPrefab;
 
-    protected List<Character> friendlies;
+    public List<Character> friendlies { get; set; }
     protected List<Character> enemies;
     
     protected TurnPhase phase;
-    protected int subjectIndex;
+    public int subjectIndex;
 
     protected string abilityName;
     protected Target target;

@@ -68,6 +68,7 @@
      <Compile Include="Assets\Scripts\Startup\ScenePreLoader.cs" />
      <Compile Include="Assets\Scripts\Startup\WaveLoader.cs" />
      <Compile Include="Assets\Scripts\Target.cs" />
+     <Compile Include="Assets\Scripts\UI\ButtonScript.cs" />
      <Compile Include="Assets\Scripts\UI\Menu.cs" />
      <Compile Include="Assets\Scripts\Weapons\Flamethrower.cs" />
      <Compile Include="Assets\Scripts\Weapons\Pistol.cs" />
