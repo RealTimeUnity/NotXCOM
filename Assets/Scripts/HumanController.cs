@@ -120,29 +120,40 @@ public class HumanController : CharacterController
         {
             for (int i = 0; i < this.friendlies.Count; ++i)
             {
-                this.friendlies[i].GetComponent<MeshRenderer>().material.SetInt("_Highlighted", 0);
+                MeshRenderer mr = friendlies[i].GetComponent<MeshRenderer>();
+                if (mr == null)
+                    friendlies[i].GetComponentInChildren<SkinnedMeshRenderer>().material.SetInt("_Highlighted", 0);
+                else
+                    mr.material.SetInt("_Highlighted", 0);
             }
 
             if (this.subjectIndex < this.friendlies.Count && this.subjectIndex >= 0)
             {
-                this.friendlies[this.subjectIndex].GetComponent<MeshRenderer>().material.SetInt("_Highlighted", 1);
-                this.friendlies[this.subjectIndex].GetComponent<MeshRenderer>().material.SetColor("_OutlineColor", new Color(0, 1, 0));
+                MeshRenderer mr = friendlies[subjectIndex].GetComponent<MeshRenderer>();
+                if (mr == null)
+                {
+                    friendlies[subjectIndex].GetComponentInChildren<SkinnedMeshRenderer>().material.SetInt("_Highlighted", 0);
+                    friendlies[subjectIndex].GetComponentInChildren<SkinnedMeshRenderer>().material.SetInt("_Highlighted", 1);
+                    friendlies[subjectIndex].GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_OutlineColor", new Color(0, 1, 0));
+                }
+                else
+                {
+                    mr.material.SetInt("_Highlighted", 0);
+                    mr.material.SetInt("_Highlighted", 1);
+                    mr.material.SetColor("_OutlineColor", new Color(0, 1, 0));
+                }
             }
         }
 
         // Range Indicator
         if (this.abilityName != null)
         {
-            this.rangeIndicator.transform.localScale = new Vector3(
-                this.friendlies[this.subjectIndex].GetAbility(this.abilityName).range, 
-                this.friendlies[this.subjectIndex].GetAbility(this.abilityName).range, 
-                this.friendlies[this.subjectIndex].GetAbility(this.abilityName).range);
 
             NavMeshHit nhit;
             NavMesh.SamplePosition(this.friendlies[this.subjectIndex].transform.position, out nhit, 10.0f, NavMesh.AllAreas);
 
             this.rangeIndicator.transform.position = nhit.position;
-            this.rangeIndicator.SetActive(true);
+            this.rangeIndicator.GetComponent<RangeIndicator>().Initialize(this.friendlies[this.subjectIndex].GetAbility(this.abilityName).range);
         }
         else
         {

@@ -53,6 +53,7 @@ public abstract class CharacterController : MonoBehaviour
             float randomX = Random.Range(-5, 5);
             float randomY = Random.Range(-5, 5);
             newCharacter.transform.Translate(new Vector3(randomX, randomY, 0));
+            newCharacter.GetComponent<Character>().owner = this;
             this.friendlies.Add(newCharacter.GetComponent<Character>());
         }
     }
