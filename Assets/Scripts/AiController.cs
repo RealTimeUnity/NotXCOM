@@ -6,11 +6,31 @@ using UnityEngine.AI;
 
 public class AiController : CharacterController
 {
+    List<Ability> abilities;
+    List<Target> targets;
+    List<int> scores;
+    int scoreInteger;
     protected override string GetAbilityName()
     {
-        return null;
-    }
+        Character actor=this.friendlies[this.subjectIndex];
+        abilities = actor.abilities;
+        for(int i = 0; i < abilities.Count; i++)
+        {
+            magicalAbilityScoreGeneration(abilities[i], actor);
+        }
+        int currentScore = 0;
+        for(int i = 0; i < scores.Count; i++)
+        {
+            if (currentScore < scores[i])
+            {
+                currentScore = scores[i];
+                scoreInteger = i;
+            }
+        }
 
+        return abilities[scoreInteger].abilityName;
+    }
+    
     protected override Vector3 GetLocationSelection()
     {
         return Vector3.zero;
@@ -25,14 +45,42 @@ public class AiController : CharacterController
     {
         return null;
     }
+    protected void magicalAbilityScoreGeneration(Ability ability,Character actor)
+    {
+        int abilityIndex = abilities.IndexOf(ability);
+        int tempScore = 0;
+        Character tempTarget;
+        string abilityName = ability.abilityName;
+        if (abilityName == "move")
+        {
+            int distance = 100000;
+            Vector3 dir = Vector3.down;
+            Vector3 temp = actor.GetComponent<Transform>().position;
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                int tempRange = (int)Vector3.Distance(temp, enemies[i].GetComponent<Transform>().position);
+                if (tempRange < distance)
+                {
+                    distance = tempRange;
+                    dir = enemies[i].GetComponent<Transform>().position;
+                    
+                }
+            }
+            targets[abilityIndex] = new Target();
+            targets[abilityIndex].SetTargetType(Target.TargetType.Location);
+            targets[abilityIndex].SetLocationTarget(dir);
+            scores[abilityIndex] = 20;
+        }
+    }
     protected int magicalHurtFormula(Character actor, Character victim)
     {
         /*magical formula used to determine the value of shooting at each target*/
         int hurtValue = 0;
-        int accuracy=actor.primary_weapon.Target(victim);
+        //int accuracy=actor.primary_weapon.Target(victim);
+        int accuracy = 20;
         int damage = actor.primary_weapon.Get_Damage();
         hurtValue = accuracy * damage;
-        if (damage > victim.health)
+        if (damage > victim.Currenthealth)
         {
             hurtValue=hurtValue*2+10;
         }
