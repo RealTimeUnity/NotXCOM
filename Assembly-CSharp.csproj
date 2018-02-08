@@ -52,7 +52,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Abilities\Ability.cs" />
+     <Compile Include="Assets\Scripts\Abilities\AreaTeamHealAbility.cs" />
+     <Compile Include="Assets\Scripts\Abilities\GrenadeAbility.cs" />
      <Compile Include="Assets\Scripts\Abilities\MoveAbility.cs" />
+     <Compile Include="Assets\Scripts\Abilities\SelfHealAbility.cs" />
      <Compile Include="Assets\Scripts\Abilities\SelfShieldAbility.cs" />
      <Compile Include="Assets\Scripts\Abilities\TestCharacterTargetAbility.cs" />
      <Compile Include="Assets\Scripts\AiController.cs" />
