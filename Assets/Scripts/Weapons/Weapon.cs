@@ -9,20 +9,12 @@ public class Weapon : Ability {
     void Start()//Initializes stats
     { }
 
-	public int Get_Damage(){
-		return Damage;
-	}
-
-	public float Get_Range(){
-		return range;
-	}
-
-	public int Target(Character startingPoint, Target target)
+	public int Aim(Target target)
     {
         int accuracy = 0;
-		if(!IsTargetInRange(startingPoint, target))
+		if(!IsTargetInRange(owner, target))
 		{
-            float distance = Vector3.Distance(startingPoint.transform.position, target.GetCharacterTarget().transform.position);
+            float distance = Vector3.Distance(owner.transform.position, target.GetCharacterTarget().transform.position);
             if (distance < (2 * range))
 			{
 				accuracy = (int)(((distance % range) / range) * 100);
@@ -35,13 +27,18 @@ public class Weapon : Ability {
 	}
 
     // Attack Function
-	public int Attack (int accuracy) {
+    public override void Execute(Target target)
+    {
 		int dam = 0;
+        int accuracy = Aim(target);
 		System.Random rand = new System.Random ();
 		int num = rand.Next (0, 100);
 		if(num < accuracy){
             dam = Damage;
         }
-        return dam;
+        if (target.GetTargetType().Equals(Target.TargetType.Enemy))
+        {
+            target.GetCharacterTarget().TakeDamage(dam);
+        }
 	}
 }
