@@ -28,15 +28,18 @@ public class AiController : CharacterController
     protected int magicalHurtFormula(Character actor, Character victim)
     {
         /*magical formula used to determine the value of shooting at each target*/
+        /*
         int hurtValue = 0;
         int accuracy=actor.primary_weapon.Target(victim);
         int damage = actor.primary_weapon.Get_Damage();
         hurtValue = accuracy * damage;
-        if (damage > victim.health)
+        if (damage > victim.Currenthealth)
         {
             hurtValue=hurtValue*2+10;
         }
         return (hurtValue);
+        */
+        return 0;
     }
     protected Character selectVictim(Character actor)
     {

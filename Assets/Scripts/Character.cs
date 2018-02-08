@@ -7,6 +7,7 @@ public class Character : MonoBehaviour {
 
     public Weapon primary_weapon;
 
+    public string Name;
     public float Currenthealth;
     public float MaxHealth;
 
@@ -27,6 +28,9 @@ public class Character : MonoBehaviour {
 
     void Start()
     {
+        Name = "Billy";
+        MaxHealth = 2;
+        Currenthealth = 1;
         this.abilities = new List<Ability>();
         for (int i = 0; i < this.abilityPrefabs.Count; ++i)
         {

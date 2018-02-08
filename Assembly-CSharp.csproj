@@ -53,9 +53,11 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Abilities\Ability.cs" />
      <Compile Include="Assets\Scripts\Abilities\MoveAbility.cs" />
+     <Compile Include="Assets\Scripts\Abilities\SelfShieldAbility.cs" />
      <Compile Include="Assets\Scripts\Abilities\TestCharacterTargetAbility.cs" />
      <Compile Include="Assets\Scripts\AiController.cs" />
      <Compile Include="Assets\Scripts\Animators\FloatingIndicator.cs" />
+     <Compile Include="Assets\Scripts\Animators\RangeIndicator.cs" />
      <Compile Include="Assets\Scripts\Animators\RotatingIndicatorBase.cs" />
      <Compile Include="Assets\Scripts\Animators\SpawnPoint.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
