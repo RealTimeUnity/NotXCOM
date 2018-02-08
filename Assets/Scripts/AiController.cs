@@ -30,20 +30,42 @@ public class AiController : CharacterController
 
         return abilities[scoreInteger].abilityName;
     }
-    
+
     protected override Vector3 GetLocationSelection()
     {
-        return Vector3.zero;
+        if (targets[scoreInteger].GetType().Equals(Target.TargetType.Location))
+        {
+            return (targets[scoreInteger].GetLocationTarget());
+        }
+        else
+        {
+    
+            return Vector3.zero;
+
+        }
     }
 
     protected override Character GetEnemySelection()
     {
-        return null;
+        if (targets[scoreInteger].GetType().Equals(Target.TargetType.Enemy))
+        {
+            return (targets[scoreInteger].GetCharacterTarget());
+        }
+        else
+        {
+            return null;
+        }
     }
 
     protected override Character GetFriendlySelection()
     {
-        return null;
+        if (targets[scoreInteger].GetType().Equals(Target.TargetType.Friendly))
+        {
+            return (targets[scoreInteger].GetCharacterTarget());
+        }
+        else {
+            return null;
+        }
     }
     protected void magicalAbilityScoreGeneration(Ability ability,Character actor)
     {
@@ -63,11 +85,15 @@ public class AiController : CharacterController
                 {
                     distance = tempRange;
                     dir = enemies[i].GetComponent<Transform>().position;
-                    
+
                 }
             }
             targets[abilityIndex] = new Target();
             targets[abilityIndex].SetTargetType(Target.TargetType.Location);
+            if (dir.magnitude > ability.range)
+            {
+                dir = dir.normalized * ability.range;
+            }
             targets[abilityIndex].SetLocationTarget(dir);
             scores[abilityIndex] = 20;
         }
