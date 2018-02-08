@@ -7,8 +7,8 @@ using UnityEngine.AI;
 public class AiController : CharacterController
 {
     List<Ability> abilities;
-    List<Target> targets;
-    List<int> scores;
+    List<Target> targets=new List<Target>();
+    List<int> scores=new List<int>();
     int scoreInteger;
     protected override string GetAbilityName()
     {
@@ -33,8 +33,9 @@ public class AiController : CharacterController
 
     protected override Vector3 GetLocationSelection()
     {
-        if (targets[scoreInteger].GetType().Equals(Target.TargetType.Location))
+        if (targets[scoreInteger].GetTargetType() == Target.TargetType.Location)
         {
+            this.ConfirmAbility();
             return (targets[scoreInteger].GetLocationTarget());
         }
         else
@@ -47,7 +48,7 @@ public class AiController : CharacterController
 
     protected override Character GetEnemySelection()
     {
-        if (targets[scoreInteger].GetType().Equals(Target.TargetType.Enemy))
+        if (targets[scoreInteger].GetTargetType()==Target.TargetType.Enemy)
         {
             return (targets[scoreInteger].GetCharacterTarget());
         }
@@ -59,7 +60,7 @@ public class AiController : CharacterController
 
     protected override Character GetFriendlySelection()
     {
-        if (targets[scoreInteger].GetType().Equals(Target.TargetType.Friendly))
+        if (targets[scoreInteger].GetTargetType()==Target.TargetType.Friendly)
         {
             return (targets[scoreInteger].GetCharacterTarget());
         }
@@ -88,14 +89,14 @@ public class AiController : CharacterController
 
                 }
             }
-            targets[abilityIndex] = new Target();
+            targets.Add(new Target());
             targets[abilityIndex].SetTargetType(Target.TargetType.Location);
             if (dir.magnitude > ability.range)
             {
-                dir = dir.normalized * ability.range;
+                dir = actor.transform.position + (dir.normalized * ability.range);
             }
             targets[abilityIndex].SetLocationTarget(dir);
-            scores[abilityIndex] = 20;
+            scores.Add(20);
         }
     }
     protected int magicalHurtFormula(Character actor, Character victim)

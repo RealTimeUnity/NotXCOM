@@ -97,11 +97,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   primary_weapon: {fileID: 0}
-  move_distance_max: 200
-  move_distance_left: 200
-  health: 1000
-  ability1: {fileID: 0}
-  ability2: {fileID: 0}
+  Name: 
+  Currenthealth: 20
+  MaxHealth: 20
+  owner: {fileID: 0}
+  maxMajorAbilities: 1
+  maxMinorAbilities: 1
+  abilityPrefabs:
+  - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
+  abilities: []
 --- !u!136 &136451771888600096
 CapsuleCollider:
   m_ObjectHideFlags: 1
