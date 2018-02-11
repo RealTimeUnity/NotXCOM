@@ -37,7 +37,7 @@ public class ButtonScript : MonoBehaviour {
                 //setting health slider
                 sliders[0].minValue = 0;
                 sliders[0].maxValue = current_char.MaxHealth;
-                sliders[0].value = current_char.Currenthealth;
+                sliders[0].value = current_char.currentHealth;
                 //setting ability bar to empty
 
                 for (int i = 1; i < max_abilities; i++)
