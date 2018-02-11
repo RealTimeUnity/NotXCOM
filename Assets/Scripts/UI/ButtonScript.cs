@@ -25,8 +25,8 @@ public class ButtonScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
         if (hugh_man.subjectIndex != -1) {
+            
             this.backGround.gameObject.SetActive(true);
             if (hugh_man.subjectIndex != prev_index)
             {

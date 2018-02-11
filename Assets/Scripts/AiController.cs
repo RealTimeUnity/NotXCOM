@@ -132,9 +132,10 @@ public class AiController : CharacterController
                 tempVictim = enemies[i];
             }
         }
+        /*
         if (hurtocity < actor.primary_weapon.Get_Damage() * .20)
         {
-            /*movement target selection*/
+            movement target selection
             //int speedLimit = (int)actor.move_distance_max;
             int distance = 100000;
             Vector3 dir = Vector3.down;
@@ -150,6 +151,7 @@ public class AiController : CharacterController
                 }
             }
         }
+        */
         return (tempVictim);
 
     }
@@ -165,6 +167,7 @@ public class AiController : CharacterController
                 hurtocity = tempVal;
             }
         }
+        /*
         if (hurtocity < actor.primary_weapon.Get_Damage() * .20)
         {
             return (true);
@@ -173,6 +176,8 @@ public class AiController : CharacterController
         {
             return (false);
         }
+        */
+        return true;
     }
     /*public void Update()
     {
