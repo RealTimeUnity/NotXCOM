@@ -116,13 +116,13 @@ public class AiController : CharacterController
         */
         return 0;
     }
-    protected Character selectVictim(Character actor)
-    {
-        /*this code will select the best target for each enemy to shoot at
-         * If no target is worth shooting at, it will move to the closest enemy
-         * defaults to enemy[0] for convenience*/
+    /* protected Character selectVictim(Character actor)
+     {
+         /*this code will select the best target for each enemy to shoot at
+          * If no target is worth shooting at, it will move to the closest enemy
+          * defaults to enemy[0] for convenience
 
-        Character tempVictim=enemies[0];
+    Character tempVictim =enemies[0];
         int hurtocity = 0;
         for (int i = 0; i < enemies.Count; i++)
         {
@@ -135,7 +135,7 @@ public class AiController : CharacterController
         }
         if (hurtocity < actor.primary_weapon.Get_Damage() * .20)
         {
-            /*movement target selection*/
+            /*movement target selection
             //int speedLimit = (int)actor.move_distance_max;
             int distance = 100000;
             Vector3 dir = Vector3.down;
@@ -156,7 +156,7 @@ public class AiController : CharacterController
     }
     protected bool attackingOrMoving(Character actor)
     {
-        /*true is attack, false is moving*/
+        /*true is attack, false is moving
         int hurtocity = 0;
         for (int i = 0; i < enemies.Count; i++)
         {
@@ -175,7 +175,7 @@ public class AiController : CharacterController
             return (false);
         }
     }
-    /*public void Update()
+    public void Update()
     {
         int range = 10000;
         int tempRange = range;

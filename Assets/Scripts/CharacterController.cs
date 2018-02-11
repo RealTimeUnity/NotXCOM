@@ -5,14 +5,14 @@ using UnityEngine;
 
 public abstract class CharacterController : MonoBehaviour
 {
-    protected enum TurnPhase { None, Begin, SelectCharacter, SelectAbility, SelectTarget, Execution, End }
+    public enum TurnPhase { None, Begin, SelectCharacter, SelectAbility, SelectTarget, Execution, End }
 
     public GameObject characterPrefab;
 
     public List<Character> friendlies { get; set; }
     protected List<Character> enemies;
     
-    protected TurnPhase phase;
+    public TurnPhase phase;
     public int subjectIndex;
 
     protected string abilityName;
