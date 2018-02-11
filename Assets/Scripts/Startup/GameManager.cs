@@ -34,12 +34,12 @@ public class GameManager : MonoBehaviour {
         if (currentPlayer == PlayerType.Human)
         {
             currentPlayer = PlayerType.Computer;
-            humanPlayer.StartTurn();
+            computerPlayer.StartTurn();
         }
         else
         {
             currentPlayer = PlayerType.Human;
-            computerPlayer.StartTurn();
+            humanPlayer.StartTurn();
         }
     }
 }
