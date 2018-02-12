@@ -493,7 +493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd04d8fcb655c8408c39a9484fee413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 1226898343651038, guid: 7f393a395a1f6664f91bd02b402fbe07,
+  characterPrefab: {fileID: 1226898343651038, guid: e88a0fb39b08e41469134716d181a163,
     type: 2}
   phase: 0
   subjectIndex: 0
@@ -549,7 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68e7ed60d277a84b951af556a8e5b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 1258549797034956, guid: cacf87b727b7ec442ac003df3b78dc9b,
+  characterPrefab: {fileID: 1363918926392582, guid: c23be1af3b575914ba46d92c04121229,
     type: 2}
   phase: 0
   subjectIndex: 0
