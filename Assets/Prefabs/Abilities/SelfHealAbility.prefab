@@ -57,3 +57,6 @@ MonoBehaviour:
   range: 0
   uses: 1
   abilityName: Heal (Self)
+  healAmount: 0.75
+  healParticleEffect: {fileID: 1773824837707892, guid: 318b12a6d4ed2124eb476881cdd800f9,
+    type: 2}
