@@ -264,53 +264,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4438060392280286, guid: 38865b47880bad343a9fa2930cf0d8d0,
     type: 2}
   m_PrefabInternal: {fileID: 65346129}
---- !u!1 &501015723
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 501015725}
-  - component: {fileID: 501015724}
-  m_Layer: 0
-  m_Name: AreaTeamHealAbility
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &501015724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 501015723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 420311ff6954f2e4e84d9ef00fa78db1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetType: 3
-  type: 1
-  useType: 0
-  range: 400
-  uses: 0
-  abilityName: Heal (Team)
-  HealAmount: 0.35
---- !u!4 &501015725
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 501015723}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 263.64206, y: 16.067865, z: 106.31015}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &522525652
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,7 +437,7 @@ Transform:
   - {fileID: 1812574114}
   - {fileID: 1767046043}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &623322830
 Prefab:
@@ -751,6 +704,48 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: d85d3a32fb6157d488e31edf82b7b1c4, type: 2}
   m_PrefabInternal: {fileID: 767131347}
+--- !u!1001 &819921559
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4839442759983372, guid: 6f37f34dcaae8d8469f1682f6949bc60, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 534.8998
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839442759983372, guid: 6f37f34dcaae8d8469f1682f6949bc60, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -97.129005
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839442759983372, guid: 6f37f34dcaae8d8469f1682f6949bc60, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1000.81903
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839442759983372, guid: 6f37f34dcaae8d8469f1682f6949bc60, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839442759983372, guid: 6f37f34dcaae8d8469f1682f6949bc60, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839442759983372, guid: 6f37f34dcaae8d8469f1682f6949bc60, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839442759983372, guid: 6f37f34dcaae8d8469f1682f6949bc60, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839442759983372, guid: 6f37f34dcaae8d8469f1682f6949bc60, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 6f37f34dcaae8d8469f1682f6949bc60, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &820426518
 Prefab:
   m_ObjectHideFlags: 0
@@ -874,7 +869,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1112332751
 Prefab:
