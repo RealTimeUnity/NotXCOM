@@ -40,6 +40,7 @@ public abstract class Ability : MonoBehaviour
     public bool IsTargetInRange(Character startingPoint, Target target)
     {
         Vector3 destination = Vector3.zero;
+        Vector3 start = startingPoint.transform.position;
         switch (this.targetType)
         {
             case Target.TargetType.Location:
@@ -53,10 +54,9 @@ public abstract class Ability : MonoBehaviour
                 destination = startingPoint.transform.position;
                 break;
         }
-
-        float distance = Vector3.Distance(startingPoint.transform.position, destination);
-        bool result = distance <= this.range;
-        return result;
+        
+        float distance = Mathf.Round((start - destination).magnitude);
+        return distance <= this.range;
     }
 
     public virtual void Execute(Target target)

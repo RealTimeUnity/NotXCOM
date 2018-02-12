@@ -493,8 +493,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd04d8fcb655c8408c39a9484fee413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 1177314610132782, guid: 70cd0f4867f6efe4694e3398e00c8d4c,
+  characterPrefab: {fileID: 1226898343651038, guid: 7f393a395a1f6664f91bd02b402fbe07,
     type: 2}
+  phase: 0
   subjectIndex: 0
 --- !u!4 &483574909
 Transform:
@@ -548,8 +549,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68e7ed60d277a84b951af556a8e5b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 1226898343651038, guid: 7f393a395a1f6664f91bd02b402fbe07,
+  characterPrefab: {fileID: 1258549797034956, guid: cacf87b727b7ec442ac003df3b78dc9b,
     type: 2}
+  phase: 0
   subjectIndex: 0
   actionConfirmUI: {fileID: 1269415795}
   combatUI: {fileID: 230009661}

@@ -186,11 +186,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4092147274585332}
   - component: {fileID: 114560857128855712}
-  - component: {fileID: 195371974319604242}
-  - component: {fileID: 95977362781180038}
   - component: {fileID: 136191547353275602}
+  - component: {fileID: 95977362781180038}
+  - component: {fileID: 195371974319604242}
   m_Layer: 0
-  m_Name: Character
+  m_Name: HumanCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1366,8 +1366,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1226898343651038}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 257.8219, y: 8.504, z: 81.121994}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4595646342447550}
@@ -2054,7 +2054,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1312791409824312}
-  m_LocalRotation: {x: 0.53267515, y: 0.07034045, z: 0.83613265, w: -0.11041513}
+  m_LocalRotation: {x: 0.5326752, y: 0.070340455, z: 0.83613276, w: -0.110415146}
   m_LocalPosition: {x: 0.000022271464, y: -0.00006150465, z: 0.026027026}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2481,12 +2481,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   primary_weapon: {fileID: 0}
-  health: 1000
+  Name: 
+  currentHealth: 0
+  MaxHealth: 0
+  owner: {fileID: 0}
   maxMajorAbilities: 0
-  maxMinorAbilities: 3
+  maxMinorAbilities: 1
   abilityPrefabs:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
-  - {fileID: 114002740424537848, guid: c15698dcd2cdcef4389058b8ec12cf2c, type: 2}
   abilities:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
 --- !u!136 &136191547353275602
