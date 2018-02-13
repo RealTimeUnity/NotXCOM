@@ -549,7 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68e7ed60d277a84b951af556a8e5b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 1363918926392582, guid: 61dace974b01ed84a907ae246e4a6797,
+  characterPrefab: {fileID: 1075979999297356, guid: 61dace974b01ed84a907ae246e4a6797,
     type: 2}
   phase: 0
   subjectIndex: 0
