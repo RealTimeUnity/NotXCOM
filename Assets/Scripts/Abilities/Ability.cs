@@ -10,6 +10,7 @@ public abstract class Ability : MonoBehaviour
 
     public Target.TargetType targetType;
     public AbilityType type = AbilityType.None;
+
     public UseType useType = UseType.NumberPerTurn;
     public int range;
     public int uses;
