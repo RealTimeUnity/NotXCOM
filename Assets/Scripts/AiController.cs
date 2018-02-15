@@ -85,15 +85,20 @@ public class AiController : CharacterController
                 if (tempRange < distance)
                 {
                     distance = tempRange;
-                    dir = enemies[i].GetComponent<Transform>().position;
+                    dir = enemies[i].GetComponent<Transform>().position-temp;
 
                 }
             }
             targets.Add(new Target());
             targets[abilityIndex].SetTargetType(Target.TargetType.Location);
+
             if (dir.magnitude > ability.range)
             {
                 dir = actor.transform.position + (dir.normalized * ability.range);
+            }
+            else
+            {
+                dir = actor.transform.position + dir;
             }
             targets[abilityIndex].SetLocationTarget(dir);
             scores.Add(20);
