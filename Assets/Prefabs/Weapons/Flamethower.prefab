@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 4977937792692350}
   - component: {fileID: 33053522199962834}
   - component: {fileID: 23660097214387918}
+  - component: {fileID: 114257870053158000}
   m_Layer: 0
   m_Name: Flamethower
   m_TagString: Untagged
@@ -394,3 +395,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1574733423880138}
   m_Mesh: {fileID: 4300002, guid: 071a54a6581434b4185a0103080a2e30, type: 3}
+--- !u!114 &114257870053158000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1628047300155022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24df7bf53e898954b8786a4448b1ab3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetType: 2
+  type: 1
+  useType: 0
+  range: 0
+  uses: 0
+  abilityName: 

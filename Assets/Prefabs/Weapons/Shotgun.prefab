@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4072197404026632}
+  - component: {fileID: 114873659231520776}
   m_Layer: 0
   m_Name: Shotgun
   m_TagString: Untagged
@@ -111,3 +112,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1987405700366004}
   m_Mesh: {fileID: 4300000, guid: 6db98b9e01d705045b1da80b990511e6, type: 3}
+--- !u!114 &114873659231520776
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1624697429439270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eabf9b4867fa854186de642a1d26ce2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetType: 2
+  type: 1
+  useType: 0
+  range: 0
+  uses: 0
+  abilityName: 
