@@ -147,7 +147,7 @@ Prefab:
     - target: {fileID: 224566649182117016, guid: d6dd4ecf45b04364bbda7f8643667da7,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -311.5
       objectReference: {fileID: 0}
     - target: {fileID: 224566649182117016, guid: d6dd4ecf45b04364bbda7f8643667da7,
         type: 2}
@@ -428,7 +428,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 362902058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -753, y: -423.5, z: 0}
+  m_LocalPosition: {x: -798.5, y: -386.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2002350923}
@@ -492,7 +492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd04d8fcb655c8408c39a9484fee413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 1226898343651038, guid: 2113694aae1a9bb4ab29bdbe8c0a7b5f,
+  characterPrefab: {fileID: 1075979999297356, guid: d2be2cc154709c5499b6eb9a81cf8141,
     type: 2}
   phase: 0
   subjectIndex: 0
@@ -548,7 +548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b68e7ed60d277a84b951af556a8e5b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 1075979999297356, guid: 569ca21f8b6e3ef4aa6555249f5ff4e0,
+  characterPrefab: {fileID: 1226898343651038, guid: d3ef90016c0c6ab42997163113b3137a,
     type: 2}
   phase: 0
   subjectIndex: 0
@@ -855,7 +855,7 @@ Prefab:
     - target: {fileID: 224423793813821528, guid: 0fbfbbbe7c51c4348870ab0b24e325bd,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -311.5
       objectReference: {fileID: 0}
     - target: {fileID: 224423793813821528, guid: 0fbfbbbe7c51c4348870ab0b24e325bd,
         type: 2}
@@ -1153,7 +1153,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1905727578}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 753, y: 423.5, z: 0}
+  m_LocalPosition: {x: 798.5, y: 386.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1269415794}
