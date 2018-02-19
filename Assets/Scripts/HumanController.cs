@@ -21,6 +21,11 @@ public class HumanController : CharacterController
         }
     }
 
+    public void clearAbilityName()
+    {
+        this.selectedAbilityName = null;
+    }
+
     protected override string GetAbilityName()
     {
         string result = null;
