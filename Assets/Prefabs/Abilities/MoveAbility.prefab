@@ -56,4 +56,4 @@ MonoBehaviour:
   useType: 0
   range: 10
   uses: 2
-  abilityName: move
+  abilityName: Move

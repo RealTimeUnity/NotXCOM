@@ -2480,18 +2480,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171e60dabe848e142921a2ecdbdce74e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primary_weapon: {fileID: 0}
   Name: 
   currentHealth: 0
   MaxHealth: 0
+  isHealthBarActive: 1
   owner: {fileID: 0}
   maxMajorAbilities: 0
   maxMinorAbilities: 1
+  numMajorAbilities: 0
+  numMinorAbilities: 0
   abilityPrefabs:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
   abilities:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
   anim: {fileID: 95977362781180038}
+  healthbarPrefab: {fileID: 114216226554046522, guid: ad168178db7c5ee468aa118bc805146e,
+    type: 2}
 --- !u!136 &136191547353275602
 CapsuleCollider:
   m_ObjectHideFlags: 1

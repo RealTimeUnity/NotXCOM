@@ -56,7 +56,7 @@ MonoBehaviour:
   useType: 0
   range: 30
   uses: 1
-  abilityName: areaheal
+  abilityName: Area Heal
   healAmount: 0.35
   healParticleEffect: {fileID: 1773824837707892, guid: b0e19c5314c292242a00a052c641f142,
     type: 2}

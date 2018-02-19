@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour {
     
@@ -10,9 +11,10 @@ public class Character : MonoBehaviour {
     [HideInInspector]
     public float currentHealth;
     public float MaxHealth;
+    public bool isHealthBarActive = true;
 
     [HideInInspector]
-    public CharacterController owner;//important
+    public CharacterController owner;
 
     public int maxMajorAbilities;
     public int maxMinorAbilities;
@@ -50,7 +52,7 @@ public class Character : MonoBehaviour {
 
     public void Update()
     {
-        anim.SetFloat("Forward", agent.velocity.magnitude / 3.0f);                
+        anim.SetFloat("Forward", agent.velocity.magnitude / 3.0f);
     }
 
     public bool HasAbility(string abilityName)

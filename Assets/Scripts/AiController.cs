@@ -72,7 +72,7 @@ public class AiController : CharacterController
     {
         int abilityIndex = abilities.IndexOf(ability);
         string abilityName = ability.abilityName;
-        if (abilityName == "move")
+        if (abilityName == "Move")
         {
             int distance = 100000;
             Vector3 dir = Vector3.down;
