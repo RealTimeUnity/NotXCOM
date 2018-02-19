@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4813002584040902}
   - component: {fileID: 33544981480316918}
   - component: {fileID: 23699600878555750}
-  - component: {fileID: 114924911430413186}
   m_Layer: 0
   m_Name: Rifle
   m_TagString: Untagged
@@ -56,7 +55,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: b1ef718eff01b184985194afcab62985, type: 2}
+  - {fileID: 2100000, guid: 0e39999bf86d8b84b9e803c41517bccb, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -82,21 +81,4 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1316551683975078}
-  m_Mesh: {fileID: 4300000, guid: a97da33f506743140bba5d7a279179ed, type: 3}
---- !u!114 &114924911430413186
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1316551683975078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8a6bfe07722ed84aacc42d6685bbc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetType: 2
-  type: 1
-  useType: 0
-  range: 0
-  uses: 0
-  abilityName: 
+  m_Mesh: {fileID: 4300000, guid: 0e39999bf86d8b84b9e803c41517bccb, type: 3}

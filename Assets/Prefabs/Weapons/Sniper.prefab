@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4715913097686262}
   - component: {fileID: 33608592653546510}
   - component: {fileID: 23339866019014720}
-  - component: {fileID: 114634965210198158}
   m_Layer: 0
   m_Name: Sniper
   m_TagString: Untagged
@@ -56,8 +55,8 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 6d48a3a13b0fa584f860c7940154fdf3, type: 2}
-  - {fileID: 2100000, guid: dec79994033cc2d428f93ed3908530cf, type: 2}
+  - {fileID: 2100000, guid: 2d61a7b9b321b9b48b79e7c134a7e883, type: 3}
+  - {fileID: 2100002, guid: 2d61a7b9b321b9b48b79e7c134a7e883, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,21 +82,4 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1824718058852036}
-  m_Mesh: {fileID: 4300000, guid: 808d8bedf2d978e47a4a056a0c33f3d9, type: 3}
---- !u!114 &114634965210198158
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1824718058852036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a469a5543b3078458e359260a05b49d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetType: 2
-  type: 1
-  useType: 0
-  range: 0
-  uses: 0
-  abilityName: 
+  m_Mesh: {fileID: 4300000, guid: 2d61a7b9b321b9b48b79e7c134a7e883, type: 3}

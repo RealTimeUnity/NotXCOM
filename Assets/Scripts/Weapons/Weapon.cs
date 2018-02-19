@@ -40,5 +40,7 @@ public class Weapon : Ability {
         {
             target.GetCharacterTarget().TakeDamage(dam);
         }
-	}
+        var exp = GetComponent<ParticleSystem>();
+        exp.Play();
+    }
 }
