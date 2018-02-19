@@ -1578,6 +1578,8 @@ MonoBehaviour:
   maxMinorAbilities: 1
   abilityPrefabs:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
+  - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
+  - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
   abilities: []
   anim: {fileID: 95116062990209166}
 --- !u!136 &136982725883411738

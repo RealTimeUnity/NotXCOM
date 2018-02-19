@@ -288,7 +288,7 @@ GameObject:
   - component: {fileID: 224669930342278688}
   - component: {fileID: 114837740691767288}
   m_Layer: 5
-  m_Name: combatUI
+  m_Name: CombatUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

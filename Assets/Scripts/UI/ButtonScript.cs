@@ -93,7 +93,7 @@ public class ButtonScript : MonoBehaviour {
         {
             current_button = buttonIndex;
             buttonClicked = true;
-            hugh_man.SelectAbility(text[current_button + 1].text);
+            hugh_man.SelectAbility(text[current_button].text);
             curr_phase = CombatPhase.TargetSelection;
         }
         else
