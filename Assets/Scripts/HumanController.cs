@@ -7,8 +7,6 @@ using UnityEngine.EventSystems;
 
 public class HumanController : CharacterController
 {
-    public GameObject actionConfirmUI;
-    public GameObject combatUI;
     public GameObject locationIndicator;
     public GameObject rangeIndicator;
     public GameObject characterIndicator;
@@ -102,7 +100,6 @@ public class HumanController : CharacterController
     {
         this.UpdateTurn();
         this.UpdateVisuals();
-        this.UpdateActiveUI();
     }
 
     protected void UpdateVisuals()
@@ -172,29 +169,6 @@ public class HumanController : CharacterController
         {
             this.locationIndicator.SetActive(false);
             this.characterIndicator.SetActive(false);
-        }
-    }
-
-    protected void UpdateActiveUI()
-    {
-        switch (this.phase)
-        {
-            case TurnPhase.None:
-            case TurnPhase.Begin:
-            case TurnPhase.SelectCharacter:
-            case TurnPhase.Execution:
-            case TurnPhase.End:
-                this.actionConfirmUI.SetActive(false);
-                this.combatUI.SetActive(false);
-                break;
-            case TurnPhase.SelectAbility:
-                this.actionConfirmUI.SetActive(false);
-                this.combatUI.SetActive(true);
-                break;
-            case TurnPhase.SelectTarget:
-                this.actionConfirmUI.SetActive(true);
-                this.combatUI.SetActive(false);
-                break;
         }
     }
 }

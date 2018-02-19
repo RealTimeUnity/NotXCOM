@@ -1533,7 +1533,7 @@ Animator:
   m_GameObject: {fileID: 1075979999297356}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  m_Controller: {fileID: 9100000, guid: f5370f04f5f848e458f2ecd88ffb3492, type: 2}
+  m_Controller: {fileID: 9100000, guid: afabb77bc14da294f92d03f95b52602b, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1578,8 +1578,7 @@ MonoBehaviour:
   maxMinorAbilities: 1
   abilityPrefabs:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
-  - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
-  - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
+  - {fileID: 114002740424537848, guid: c15698dcd2cdcef4389058b8ec12cf2c, type: 2}
   abilities: []
   anim: {fileID: 95116062990209166}
 --- !u!136 &136982725883411738
