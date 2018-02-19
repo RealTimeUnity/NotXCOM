@@ -24,6 +24,7 @@ public class Character : MonoBehaviour {
     public List<Ability> abilities;
 
     private NavMeshAgent agent;
+    [SerializeField]
     private Animator anim;
 
     void Start()

@@ -51,12 +51,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Huge Mocap Library\demo\scripts\demo.cs" />
+     <Compile Include="Assets\Huge Mocap Library\demo\scripts\smoothFollow.cs" />
      <Compile Include="Assets\Scripts\Abilities\Ability.cs" />
      <Compile Include="Assets\Scripts\Abilities\AreaTeamHealAbility.cs" />
      <Compile Include="Assets\Scripts\Abilities\GrenadeAbility.cs" />
+     <Compile Include="Assets\Scripts\Abilities\MineAbility.cs" />
      <Compile Include="Assets\Scripts\Abilities\MoveAbility.cs" />
      <Compile Include="Assets\Scripts\Abilities\SelfHealAbility.cs" />
      <Compile Include="Assets\Scripts\Abilities\SelfShieldAbility.cs" />
+     <Compile Include="Assets\Scripts\Abilities\TeamShieldAbility.cs" />
      <Compile Include="Assets\Scripts\Abilities\TestCharacterTargetAbility.cs" />
      <Compile Include="Assets\Scripts\AiController.cs" />
      <Compile Include="Assets\Scripts\Animators\FloatingIndicator.cs" />
@@ -81,6 +85,8 @@
      <Compile Include="Assets\Scripts\Weapons\Shotgun.cs" />
      <Compile Include="Assets\Scripts\Weapons\Sniper.cs" />
      <Compile Include="Assets\Scripts\Weapons\Weapon.cs" />
+     <None Include="Assets\Huge Mocap Library\READTHIS.txt" />
+     <None Include="Assets\Huge Mocap Library\mocap animations\cmu-mocap-index-text.txt" />
      <None Include="Assets\Shaders\Highlight.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
