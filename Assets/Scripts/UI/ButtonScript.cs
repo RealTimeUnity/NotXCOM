@@ -27,6 +27,7 @@ public class ButtonScript : MonoBehaviour {
     protected bool buttonClicked = false;
     protected CombatPhase curr_phase = CombatPhase.None;
     protected int current_button = -1;
+    protected Button cancelButton = null;
 	// Use this for initialization
 	void Start () {
         hugh_man = FindObjectOfType<HumanController>();
@@ -35,12 +36,13 @@ public class ButtonScript : MonoBehaviour {
         buttons = backGround.gameObject.GetComponentsInChildren<Button>();
         sliders = backGround.gameObject.GetComponentsInChildren<Slider>();
         text = backGround.gameObject.GetComponentsInChildren<Text>();
+        cancelButton = buttons[buttons.Length - 1];
     }
 
     int buttonRollCall()
     {
         int ret = 0;
-        for(int i = 0; i < ability_count; i++)
+        for(int i = 0; i < max_abilities; i++)
         {
             if (buttons[i].interactable)
             {
@@ -55,6 +57,7 @@ public class ButtonScript : MonoBehaviour {
         hugh_man.CancelAbility();
         buttonClicked = false;
         curr_phase = CombatPhase.None;
+        prev_index = -1;
     }
 
     void updateInfo()
@@ -68,15 +71,15 @@ public class ButtonScript : MonoBehaviour {
         sliders[0].value = current_char.currentHealth;
         //setting ability bar to empty
 
-        for (int i = 1; i < max_abilities; i++)
+        for (int i = 0; i < max_abilities; i++)
         {
             text[i + 1].text = "";
             buttons[i].interactable = false;
             buttons[i].onClick.RemoveAllListeners();
         }
-        buttons[max_abilities].onClick.RemoveAllListeners();
-        buttons[max_abilities].onClick.AddListener(cancel);
-        buttons[max_abilities].interactable = false;
+        cancelButton.onClick.RemoveAllListeners();
+        cancelButton.onClick.AddListener(cancel);
+        cancelButton.interactable = false;
         //filling in values
         for (int i = 0; i < current_char.abilities.Count; i++)
         {
@@ -93,7 +96,7 @@ public class ButtonScript : MonoBehaviour {
         {
             current_button = buttonIndex;
             buttonClicked = true;
-            hugh_man.SelectAbility(text[current_button + 1].text);
+            hugh_man.SelectAbility(text[current_button].text);
             curr_phase = CombatPhase.TargetSelection;
         }
         else
@@ -133,20 +136,19 @@ public class ButtonScript : MonoBehaviour {
             case CombatPhase.TargetSelection:
                 if(buttonRollCall() != 1)
                 {
-                    for(int i = 0; i < ability_count; i++)
+                    for(int i = 0; i < max_abilities; i++)
                     {
                         buttons[i].interactable = false;
                     }
                     buttons[current_button].interactable = true;
-                    if (!buttons[max_abilities].interactable)
-                    {
-                        buttons[max_abilities].interactable = true;
-                    }
                 }
+                
+                cancelButton.interactable = true;
                 break;
             case CombatPhase.ActionExecution:
                 //wait for an undetermined ammount of time
-                buttons[max_abilities].interactable = false;
+                cancelButton.interactable = false;
+                prev_index = -1;
                 curr_phase = CombatPhase.None;
                 break;
         }
