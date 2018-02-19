@@ -14,20 +14,12 @@ public class HumanController : CharacterController
     public GameObject characterIndicator;
 
     protected string selectedAbilityName = null;
-    
-    public void SelectMoveAbility()
-    {
-        if (this.friendlies[this.subjectIndex].HasAbility("move"))
-        {
-            this.selectedAbilityName = "move";
-        }
-    }
 
-    public void SelectCharacterAbility()
+    public void SelectAbility(string name)
     {
-        if (this.friendlies[this.subjectIndex].HasAbility("character"))
+        if (this.friendlies[this.subjectIndex].HasAbility(name))
         {
-            this.selectedAbilityName = "character";
+            this.selectedAbilityName = name;
         }
     }
 

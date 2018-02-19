@@ -21,7 +21,7 @@ public abstract class CharacterController : MonoBehaviour
     protected bool abilityConfirmed;
 
     public void Start()
-    {
+    {  
         this.friendlies = new List<Character>();
         this.enemies = new List<Character>();
         this.phase = TurnPhase.None;
