@@ -13,30 +13,46 @@ public class ButtonScript : MonoBehaviour {
         TargetSelection,
         ActionExecution
     }
+
     protected HumanController hugh_man;
-    protected CharacterController char_man;
     protected Character current_char;
-    public Image backGround;
+
     public Sprite[] sprites;
-    protected Button[] buttons;
-    protected Text[] text;
-    protected Slider[] sliders;
+    protected Image backGround;
+    protected Button[] abilityButtons;
+    protected Text[] abilityTexts;
+    protected Slider healthSlider;
+    protected Button cancelButton;
+    protected Text cancelText;
+    protected Text nameText;
+    protected Text majorText;
+    protected Text minorText;
+    protected Text[] useTexts;
+
+    protected CombatPhase curr_phase = CombatPhase.None;
+    public int max_abilities = 6;
     protected int prev_index = -1;
-    protected int max_abilities = 6;
     protected int ability_count = 0;
     protected bool buttonClicked = false;
-    protected CombatPhase curr_phase = CombatPhase.None;
     protected int current_button = -1;
-    protected Button cancelButton = null;
-	// Use this for initialization
+
 	void Start () {
         hugh_man = FindObjectOfType<HumanController>();
-        char_man = FindObjectOfType<CharacterController>();
+
         backGround = this.GetComponentInChildren<Image>();
-        buttons = backGround.gameObject.GetComponentsInChildren<Button>();
-        sliders = backGround.gameObject.GetComponentsInChildren<Slider>();
-        text = backGround.gameObject.GetComponentsInChildren<Text>();
-        cancelButton = buttons[buttons.Length - 1];
+        Slider[] sliders = backGround.gameObject.GetComponentsInChildren<Slider>();
+        Button[] buttons = backGround.gameObject.GetComponentsInChildren<Button>();
+        Text[] text = backGround.gameObject.GetComponentsInChildren<Text>();
+
+        abilityButtons = new Button[] { buttons[0], buttons[1], buttons[2], buttons[3], buttons[4], buttons[5] };
+        cancelButton = buttons[6];
+        abilityTexts = new Text[] { text[1], text[4], text[7], text[10], text[13], text[16] };
+        useTexts = new Text[] { text[3], text[6], text[9], text[12], text[15], text[18] };
+        majorText = text[22];
+        minorText = text[23];
+        cancelText = text[7];
+        nameText = text[0];
+        healthSlider = sliders[0];
     }
 
     int buttonRollCall()
@@ -44,7 +60,7 @@ public class ButtonScript : MonoBehaviour {
         int ret = 0;
         for(int i = 0; i < max_abilities; i++)
         {
-            if (buttons[i].interactable)
+            if (abilityButtons[i].interactable)
             {
                 ret++;
             }
@@ -63,19 +79,21 @@ public class ButtonScript : MonoBehaviour {
     void updateInfo()
     {
         current_char = hugh_man.friendlies[hugh_man.subjectIndex];
-        //setting name
-        text[0].text = current_char.Name;
-        //setting health slider
-        sliders[0].minValue = 0;
-        sliders[0].maxValue = current_char.MaxHealth;
-        sliders[0].value = current_char.currentHealth;
-        //setting ability bar to empty
+
+        nameText.text = current_char.Name;
+
+        healthSlider.minValue = 0;
+        healthSlider.maxValue = current_char.MaxHealth;
+        healthSlider.value = current_char.currentHealth;
+
+        majorText.text = current_char.numMajorAbilities.ToString();
+        minorText.text = current_char.numMinorAbilities.ToString();
 
         for (int i = 0; i < max_abilities; i++)
         {
-            text[i + 1].text = "";
-            buttons[i].interactable = false;
-            buttons[i].onClick.RemoveAllListeners();
+            abilityTexts[i].text = "";
+            abilityButtons[i].interactable = false;
+            abilityButtons[i].onClick.RemoveAllListeners();
         }
         cancelButton.onClick.RemoveAllListeners();
         cancelButton.onClick.AddListener(cancel);
@@ -83,10 +101,12 @@ public class ButtonScript : MonoBehaviour {
         //filling in values
         for (int i = 0; i < current_char.abilities.Count; i++)
         {
-            text[i + 1].text = current_char.abilities[i].abilityName;
-            buttons[i].onClick.AddListener(delegate { buttonOnClick(i); });
-            buttons[i].interactable = true;
+            int index = i;
+            abilityTexts[i].text = current_char.abilities[i].abilityName;
+            useTexts[i].text = current_char.abilities[i].uses.ToString();
+            abilityButtons[i].onClick.AddListener(delegate { buttonOnClick(index); });
             ability_count++;
+            abilityButtons[i].interactable = true;
         }
     }
 	
@@ -96,19 +116,30 @@ public class ButtonScript : MonoBehaviour {
         {
             current_button = buttonIndex;
             buttonClicked = true;
-            hugh_man.SelectAbility(text[current_button].text);
+            hugh_man.SelectAbility(abilityTexts[current_button].text);
             curr_phase = CombatPhase.TargetSelection;
         }
         else
         {
-            buttonClicked = false;
-            hugh_man.ConfirmAbility();
-            curr_phase = CombatPhase.ActionExecution;
+            if (hugh_man.target != null)
+            {
+                buttonClicked = false;
+                hugh_man.ConfirmAbility();
+                curr_phase = CombatPhase.ActionExecution;
+            }
         }
     }
 
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+        if (current_char != null)
+        {
+            healthSlider.value = current_char.currentHealth;
+            majorText.text = current_char.numMajorAbilities.ToString();
+            minorText.text = current_char.numMinorAbilities.ToString();
+        }
+
         switch (curr_phase)
         {
             case CombatPhase.None:
@@ -132,15 +163,26 @@ public class ButtonScript : MonoBehaviour {
                 {
                     curr_phase = CombatPhase.None;
                 }
+
+
+                for (int i = 0; i < current_char.abilities.Count; i++)
+                {
+                    Ability ability = current_char.GetAbility(abilityTexts[i].text);
+                    useTexts[i].text = ability.uses.ToString();
+                    if (ability.uses <= 0 || (ability.type == Ability.AbilityType.Major && current_char.numMajorAbilities <= 0) || (ability.type == Ability.AbilityType.Minor && current_char.numMinorAbilities <= 0))
+                    {
+                        abilityButtons[i].interactable = false;
+                    }
+                }
                 break;
             case CombatPhase.TargetSelection:
                 if(buttonRollCall() != 1)
                 {
                     for(int i = 0; i < max_abilities; i++)
                     {
-                        buttons[i].interactable = false;
+                        abilityButtons[i].interactable = false;
                     }
-                    buttons[current_button].interactable = true;
+                    abilityButtons[current_button].interactable = true;
                 }
                 
                 cancelButton.interactable = true;

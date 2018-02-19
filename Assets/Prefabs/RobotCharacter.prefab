@@ -1569,16 +1569,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171e60dabe848e142921a2ecdbdce74e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primary_weapon: {fileID: 0}
   Name: 
   currentHealth: 0
   MaxHealth: 0
   owner: {fileID: 0}
-  maxMajorAbilities: 0
-  maxMinorAbilities: 1
+  maxMajorAbilities: 1
+  maxMinorAbilities: 2
+  numMajorAbilities: 0
+  numMinorAbilities: 0
   abilityPrefabs:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
-  - {fileID: 114002740424537848, guid: c15698dcd2cdcef4389058b8ec12cf2c, type: 2}
+  - {fileID: 114892878764327600, guid: b4565c9c2ce4d1d42a4589dbc6ab5fce, type: 2}
+  - {fileID: 114302266530860604, guid: ae36185b75a14704d9985df662e963e6, type: 2}
+  - {fileID: 114993796116658346, guid: 448bfe77e57028a42b82a74c28b6023a, type: 2}
+  - {fileID: 114547684493341452, guid: 7e55df24da66c814ea13a593179e1cf6, type: 2}
+  - {fileID: 114697456365852908, guid: 0d305104065554346a2ce53a1e7cff73, type: 2}
   abilities: []
   anim: {fileID: 95116062990209166}
 --- !u!136 &136982725883411738

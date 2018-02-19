@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon : Ability {
 
-    protected int Damage;
+    public int Damage;
 
     void Start()//Initializes stats
     { }

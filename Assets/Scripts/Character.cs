@@ -4,19 +4,22 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Character : MonoBehaviour {
-
-    public Weapon primary_weapon;
-
+    
     public string Name;
+
+    [HideInInspector]
     public float currentHealth;
     public float MaxHealth;
 
+    [HideInInspector]
     public CharacterController owner;//important
 
     public int maxMajorAbilities;
     public int maxMinorAbilities;
-    protected int numMajorAbilities;
-    protected int numMinorAbilities;
+    [HideInInspector]
+    public int numMajorAbilities;
+    [HideInInspector]
+    public int numMinorAbilities;
 
     public List<Ability> abilityPrefabs;
 

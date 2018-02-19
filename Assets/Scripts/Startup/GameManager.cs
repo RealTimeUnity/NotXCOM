@@ -9,9 +9,6 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private CharacterController computerPlayer;
 
-    [SerializeField]
-    private Character[] characters;
-
     private PlayerType currentPlayer;
     
     public void Start()

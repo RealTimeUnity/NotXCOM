@@ -13,8 +13,6 @@ public class CameraController : MonoBehaviour {
 
     public void FixedUpdate()
     {
-        Vector3 mousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-
         Vector3 forward = Vector3.Cross(Vector3.up, transform.right);
 
         //if(mousePosition.x > 0.95f)

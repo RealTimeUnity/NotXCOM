@@ -71,8 +71,6 @@ public class AiController : CharacterController
     protected void magicalAbilityScoreGeneration(Ability ability,Character actor)
     {
         int abilityIndex = abilities.IndexOf(ability);
-        int tempScore = 0;
-        Character tempTarget;
         string abilityName = ability.abilityName;
         if (abilityName == "move")
         {

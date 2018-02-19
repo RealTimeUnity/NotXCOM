@@ -9,14 +9,18 @@ public abstract class CharacterController : MonoBehaviour
 
     public GameObject characterPrefab;
 
+    [HideInInspector]
     public List<Character> friendlies { get; set; }
     protected List<Character> enemies;
-    
+
+    [HideInInspector]
     public TurnPhase phase;
+    [HideInInspector]
     public int subjectIndex;
 
     protected string abilityName;
-    protected Target target;
+    [HideInInspector]
+    public Target target;
     protected bool abilityCanceled;
     protected bool abilityConfirmed;
 

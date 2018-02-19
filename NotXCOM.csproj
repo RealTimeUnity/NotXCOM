@@ -298,7 +298,7 @@
     <Compile Include="Assets\Scripts\Abilities\SelfHealAbility.cs" />
     <Compile Include="Assets\Scripts\Abilities\SelfShieldAbility.cs" />
     <Compile Include="Assets\Scripts\Abilities\TeamShieldAbility.cs" />
-    <Compile Include="Assets\Scripts\Abilities\TestCharacterTargetAbility.cs" />
+    <Compile Include="Assets\Scripts\Abilities\Weapon.cs" />
     <Compile Include="Assets\Scripts\AiController.cs" />
     <Compile Include="Assets\Scripts\Animators\FloatingIndicator.cs" />
     <Compile Include="Assets\Scripts\Animators\RangeIndicator.cs" />
@@ -316,12 +316,6 @@
     <Compile Include="Assets\Scripts\Target.cs" />
     <Compile Include="Assets\Scripts\UI\ButtonScript.cs" />
     <Compile Include="Assets\Scripts\UI\Menu.cs" />
-    <Compile Include="Assets\Scripts\Weapons\Flamethrower.cs" />
-    <Compile Include="Assets\Scripts\Weapons\Pistol.cs" />
-    <Compile Include="Assets\Scripts\Weapons\Rifle.cs" />
-    <Compile Include="Assets\Scripts\Weapons\Shotgun.cs" />
-    <Compile Include="Assets\Scripts\Weapons\Sniper.cs" />
-    <Compile Include="Assets\Scripts\Weapons\Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Huge Mocap Library\READTHIS.txt" />
