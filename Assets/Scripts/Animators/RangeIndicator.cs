@@ -20,7 +20,7 @@ public class RangeIndicator : MonoBehaviour {
 
     public void Update()
     {
-        if (this.isActiveAndEnabled && this.transform.localScale.x <= this.size)
+        if (this.isActiveAndEnabled && this.transform.localScale.x < this.size)
         {
             this.transform.localScale += new Vector3(speed * Time.deltaTime, speed * Time.deltaTime, speed * Time.deltaTime);
         }

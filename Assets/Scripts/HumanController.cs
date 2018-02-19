@@ -139,7 +139,7 @@ public class HumanController : CharacterController
         {
 
             NavMeshHit nhit;
-            NavMesh.SamplePosition(this.friendlies[this.subjectIndex].transform.position, out nhit, 10.0f, NavMesh.AllAreas);
+            NavMesh.SamplePosition(this.friendlies[this.subjectIndex].transform.position, out nhit, 1000.0f, NavMesh.AllAreas);
 
             this.rangeIndicator.transform.position = nhit.position;
             this.rangeIndicator.GetComponent<RangeIndicator>().Initialize(this.friendlies[this.subjectIndex].GetAbility(this.abilityName).range);

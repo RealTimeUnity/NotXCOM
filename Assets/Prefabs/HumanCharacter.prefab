@@ -2054,7 +2054,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1312791409824312}
-  m_LocalRotation: {x: 0.53267515, y: 0.07034045, z: 0.83613265, w: -0.11041513}
+  m_LocalRotation: {x: 0.5326752, y: 0.070340455, z: 0.83613276, w: -0.110415146}
   m_LocalPosition: {x: 0.000022271464, y: -0.00006150465, z: 0.026027026}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2494,7 +2494,7 @@ MonoBehaviour:
   abilities:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
   anim: {fileID: 95977362781180038}
-  healthbarPrefab: {fileID: 114216226554046522, guid: ad168178db7c5ee468aa118bc805146e,
+  healthbarPrefab: {fileID: 1072393312336170, guid: 93d5f410b4ca54b47aa76a1cd57153db,
     type: 2}
 --- !u!136 &136191547353275602
 CapsuleCollider:

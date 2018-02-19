@@ -1587,7 +1587,7 @@ MonoBehaviour:
   - {fileID: 114697456365852908, guid: 0d305104065554346a2ce53a1e7cff73, type: 2}
   abilities: []
   anim: {fileID: 95116062990209166}
-  healthbarPrefab: {fileID: 114216226554046522, guid: ad168178db7c5ee468aa118bc805146e,
+  healthbarPrefab: {fileID: 1072393312336170, guid: 93d5f410b4ca54b47aa76a1cd57153db,
     type: 2}
 --- !u!136 &136982725883411738
 CapsuleCollider:

@@ -32,6 +32,12 @@ public class Character : MonoBehaviour {
     [SerializeField]
     private Animator anim;
 
+    public GameObject healthbarPrefab;
+    protected GameObject healthbar;
+    protected SpriteRenderer healthbarValue;
+    protected Camera mainCamera;
+    protected float baseHealthbarScale;
+
     void Start()
     {
         Name = "Billy";
@@ -48,11 +54,19 @@ public class Character : MonoBehaviour {
 
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+
+        mainCamera = FindObjectOfType<Camera>();
+        healthbar = Instantiate(healthbarPrefab, this.gameObject.transform);
+        healthbarPrefab.SetActive(true);
+        healthbarValue = healthbar.GetComponentsInChildren<SpriteRenderer>()[1];
+        baseHealthbarScale = healthbarValue.transform.localScale.x;
     }
 
     public void Update()
     {
         anim.SetFloat("Forward", agent.velocity.magnitude / 3.0f);
+        healthbar.transform.rotation = mainCamera.transform.rotation;
+        healthbarValue.transform.localScale = new Vector3((currentHealth / MaxHealth) * baseHealthbarScale, healthbarValue.transform.localScale.y, healthbarValue.transform.localScale.z);
     }
 
     public bool HasAbility(string abilityName)
