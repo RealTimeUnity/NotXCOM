@@ -77,6 +77,36 @@ public abstract class CharacterController : MonoBehaviour
 
     protected void UpdateTurn()
     {
+        List<int> charactersToRemove = new List<int>();
+        for (int i = 0; i < this.friendlies.Count; ++i)
+        {
+            if (this.friendlies[i].currentHealth <= 0)
+            {
+                charactersToRemove.Add(i);
+            }
+        }
+        for (int i = 0; i < charactersToRemove.Count; ++i)
+        {
+            Character c = this.friendlies[charactersToRemove[i]];
+            this.friendlies.RemoveAt(charactersToRemove[i]);
+            Destroy(c.gameObject);
+        }
+
+        charactersToRemove.Clear();
+        for (int i = 0; i < this.enemies.Count; ++i)
+        {
+            if (this.enemies[i].currentHealth <= 0)
+            {
+                charactersToRemove.Add(i);
+            }
+        }
+        for (int i = 0; i < charactersToRemove.Count; ++i)
+        {
+            Character c = this.enemies[charactersToRemove[i]];
+            this.enemies.RemoveAt(charactersToRemove[i]);
+            Destroy(c.gameObject);
+        }
+
         switch (this.phase)
         {
             case TurnPhase.Begin:

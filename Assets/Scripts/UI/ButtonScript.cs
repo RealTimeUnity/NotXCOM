@@ -23,6 +23,7 @@ public class ButtonScript : MonoBehaviour {
     protected Text[] abilityTexts;
     protected Slider healthSlider;
     protected Button cancelButton;
+    protected Button endTurnButton;
     protected Text cancelText;
     protected Text nameText;
     protected Text majorText;
@@ -46,6 +47,7 @@ public class ButtonScript : MonoBehaviour {
 
         abilityButtons = new Button[] { buttons[0], buttons[1], buttons[2], buttons[3], buttons[4], buttons[5] };
         cancelButton = buttons[6];
+        endTurnButton = buttons[7];
         abilityTexts = new Text[] { text[1], text[4], text[7], text[10], text[13], text[16] };
         useTexts = new Text[] { text[3], text[6], text[9], text[12], text[15], text[18] };
         majorText = text[22];
@@ -76,6 +78,11 @@ public class ButtonScript : MonoBehaviour {
         prev_index = -1;
     }
 
+    void endTurn()
+    {
+        hugh_man.phase = CharacterController.TurnPhase.SelectCharacter;
+    }
+
     void updateInfo()
     {
         current_char = hugh_man.friendlies[hugh_man.subjectIndex];
@@ -98,6 +105,11 @@ public class ButtonScript : MonoBehaviour {
         cancelButton.onClick.RemoveAllListeners();
         cancelButton.onClick.AddListener(cancel);
         cancelButton.interactable = false;
+
+        endTurnButton.onClick.RemoveAllListeners();
+        endTurnButton.onClick.AddListener(endTurn);
+        endTurnButton.interactable = true;
+
         //filling in values
         for (int i = 0; i < current_char.abilities.Count; i++)
         {
