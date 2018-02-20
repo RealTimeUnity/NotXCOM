@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour {
 
@@ -41,7 +42,9 @@ public class CameraController : MonoBehaviour {
             transform.Rotate(Vector3.up * -cameraRotationSpeed * Time.deltaTime, Space.World);
         if (Input.GetKey(KeyCode.E))
             transform.Rotate(Vector3.up * cameraRotationSpeed * Time.deltaTime, Space.World);
-
-        transform.position += transform.forward * Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime * cameraZoomSpeed;
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            transform.position += transform.forward * Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime * cameraZoomSpeed;
+        }
     }
 }

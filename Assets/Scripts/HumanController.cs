@@ -11,13 +11,26 @@ public class HumanController : CharacterController
     public GameObject rangeIndicator;
     public GameObject characterIndicator;
 
+    protected bool selectUIUpdated = false;
+    protected int selectedSubjectIndex = -1;
     protected string selectedAbilityName = null;
 
+    public GameObject combatUI;
+    public GameObject characterSelectUI;
+    
     public void SelectAbility(string name)
     {
         if (this.friendlies[this.subjectIndex].HasAbility(name))
         {
             this.selectedAbilityName = name;
+        }
+    }
+
+    public void SelectSubject(int index)
+    {
+        if (index < this.friendlies.Count && index >= 0)
+        {
+            this.selectedSubjectIndex = index;
         }
     }
 
@@ -28,6 +41,18 @@ public class HumanController : CharacterController
         {
             result = this.selectedAbilityName;
             this.selectedAbilityName = null;
+        }
+
+        return result;
+    }
+
+    protected override int GetSubjectIndex()
+    {
+        int result = -1;
+        if (this.selectedSubjectIndex != -1)
+        {
+            result = this.selectedSubjectIndex;
+            this.selectedSubjectIndex = -1;
         }
 
         return result;
@@ -104,40 +129,28 @@ public class HumanController : CharacterController
 
     protected void UpdateVisuals()
     {
-        // Subject Highlighting
-        if (this.subjectIndex != -1)
+        switch (this.phase)
         {
-            for (int i = 0; i < this.friendlies.Count; ++i)
-            {
-                MeshRenderer mr = friendlies[i].GetComponent<MeshRenderer>();
-                if (mr == null)
-                    friendlies[i].GetComponentInChildren<SkinnedMeshRenderer>().material.SetInt("_Highlighted", 0);
-                else
-                    mr.material.SetInt("_Highlighted", 0);
-            }
+            case TurnPhase.SelectCharacter:
+                if (!selectUIUpdated)
+                {
+                    characterSelectUI.GetComponentInParent<CharacterSelectUI>().UpdateList(this);
+                    this.selectUIUpdated = true;
+                }
 
-            if (this.subjectIndex < this.friendlies.Count && this.subjectIndex >= 0)
-            {
-                MeshRenderer mr = friendlies[subjectIndex].GetComponent<MeshRenderer>();
-                if (mr == null)
-                {
-                    friendlies[subjectIndex].GetComponentInChildren<SkinnedMeshRenderer>().material.SetInt("_Highlighted", 0);
-                    friendlies[subjectIndex].GetComponentInChildren<SkinnedMeshRenderer>().material.SetInt("_Highlighted", 1);
-                    friendlies[subjectIndex].GetComponentInChildren<SkinnedMeshRenderer>().material.SetColor("_OutlineColor", new Color(0, 1, 0));
-                }
-                else
-                {
-                    mr.material.SetInt("_Highlighted", 0);
-                    mr.material.SetInt("_Highlighted", 1);
-                    mr.material.SetColor("_OutlineColor", new Color(0, 1, 0));
-                }
-            }
+                combatUI.SetActive(false);
+                characterSelectUI.SetActive(true);
+                break;
+            case TurnPhase.SelectAbility:
+                characterSelectUI.SetActive(false);
+                combatUI.SetActive(true);
+                this.selectUIUpdated = false;
+                break;
         }
-
+        
         // Range Indicator
         if (this.abilityName != null)
         {
-
             NavMeshHit nhit;
             NavMesh.SamplePosition(this.friendlies[this.subjectIndex].transform.position, out nhit, 1000.0f, NavMesh.AllAreas);
 

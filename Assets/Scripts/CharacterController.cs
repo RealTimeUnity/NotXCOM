@@ -8,6 +8,7 @@ public abstract class CharacterController : MonoBehaviour
     public enum TurnPhase { None, Begin, SelectCharacter, SelectAbility, SelectTarget, Execution, End }
 
     public GameObject characterPrefab;
+    public List<string> names;
 
     [HideInInspector]
     public List<Character> friendlies { get; set; }
@@ -45,19 +46,25 @@ public abstract class CharacterController : MonoBehaviour
     {
         this.subjectIndex = -1;
 
+        for (int i = 0; i < this.friendlies.Count; ++i)
+        {
+            this.friendlies[i].hasHadTurn = false;
+        }
+
         FindObjectOfType<GameManager>().FinishTurn();
     }
 
     public void CreateFriendlyCharacters(SpawnPoint spawnPoint)
     {
         this.friendlies = new List<Character>();
-        for (int i = 0; i < 10; ++i)
+        for (int i = 0; i < 7; ++i)
         {
             GameObject newCharacter = Instantiate(characterPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
             float randomX = Random.Range(-5, 5);
             float randomY = Random.Range(-5, 5);
             newCharacter.transform.Translate(new Vector3(randomX, randomY, 0));
             newCharacter.GetComponent<Character>().owner = this;
+            newCharacter.GetComponent<Character>().Name = names[i];
             this.friendlies.Add(newCharacter.GetComponent<Character>());
         }
     }
@@ -113,12 +120,25 @@ public abstract class CharacterController : MonoBehaviour
                 this.phase = TurnPhase.SelectCharacter;
                 break;
             case TurnPhase.SelectCharacter:
-                this.subjectIndex += 1;
-                if (this.subjectIndex < this.friendlies.Count)
+                int newSubjectIndex = this.GetSubjectIndex();
+
+                if (newSubjectIndex >= 0 && newSubjectIndex < this.friendlies.Count)
                 {
+                    this.subjectIndex = newSubjectIndex;
                     this.phase = TurnPhase.SelectAbility;
                 }
-                else
+
+                bool allTurnsDone = true;
+                for (int i = 0; i < this.friendlies.Count; ++i)
+                {
+                    if (!this.friendlies[i].hasHadTurn)
+                    {
+                        allTurnsDone = false;
+                        break;
+                    }
+                }
+
+                if (allTurnsDone || this.subjectIndex >= this.friendlies.Count)
                 {
                     this.phase = TurnPhase.End;
                 }
@@ -173,6 +193,7 @@ public abstract class CharacterController : MonoBehaviour
                     this.phase = TurnPhase.SelectCharacter;
                 }
 
+                this.friendlies[this.subjectIndex].hasHadTurn = true;
                 this.abilityName = null;
                 this.target = null;
                 this.abilityCanceled = false;
@@ -239,6 +260,8 @@ public abstract class CharacterController : MonoBehaviour
     {
         this.abilityConfirmed = true;
     }
+
+    protected abstract int GetSubjectIndex();
 
     protected abstract string GetAbilityName();
 

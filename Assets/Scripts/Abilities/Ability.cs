@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public abstract class Ability : MonoBehaviour
@@ -8,6 +9,7 @@ public abstract class Ability : MonoBehaviour
     public enum AbilityType { None, Major, Minor, Passive }
     public enum UseType { NumberPerTurn, AbsoluteNumber }
 
+    public Sprite sprite;
     public Target.TargetType targetType;
     public AbilityType type = AbilityType.None;
 

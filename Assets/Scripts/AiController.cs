@@ -31,6 +31,11 @@ public class AiController : CharacterController
         return abilities[scoreInteger].abilityName;
     }
 
+    protected override int GetSubjectIndex()
+    {
+        return this.subjectIndex + 1;
+    }
+
     protected override Vector3 GetLocationSelection()
     {
         if (targets[scoreInteger].GetTargetType() == Target.TargetType.Location)

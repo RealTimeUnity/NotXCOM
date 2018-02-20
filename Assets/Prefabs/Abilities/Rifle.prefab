@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d06925ec5c348e446b968fc6884bdf2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 91c12e3f40a79854da79ea56001aa5d2, type: 3}
   targetType: 2
   type: 1
   useType: 1

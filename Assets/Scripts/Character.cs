@@ -23,6 +23,9 @@ public class Character : MonoBehaviour {
     [HideInInspector]
     public int numMinorAbilities;
 
+    [HideInInspector]
+    public bool hasHadTurn = false;
+
     public List<Ability> abilityPrefabs;
 
     [HideInInspector]
@@ -40,7 +43,6 @@ public class Character : MonoBehaviour {
 
     void Start()
     {
-        Name = "Billy";
         MaxHealth = 2;
         currentHealth = 1;
         this.abilities = new List<Ability>();

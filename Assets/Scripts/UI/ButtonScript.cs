@@ -16,8 +16,7 @@ public class ButtonScript : MonoBehaviour {
 
     protected HumanController hugh_man;
     protected Character current_char;
-
-    public Sprite[] sprites;
+    
     protected Image backGround;
     protected Button[] abilityButtons;
     protected Text[] abilityTexts;
@@ -40,10 +39,10 @@ public class ButtonScript : MonoBehaviour {
 	void Start () {
         hugh_man = FindObjectOfType<HumanController>();
 
-        backGround = this.GetComponentInChildren<Image>();
-        Slider[] sliders = backGround.gameObject.GetComponentsInChildren<Slider>();
-        Button[] buttons = backGround.gameObject.GetComponentsInChildren<Button>();
-        Text[] text = backGround.gameObject.GetComponentsInChildren<Text>();
+        backGround = this.GetComponentInChildren<Image>(true);
+        Slider[] sliders = backGround.gameObject.GetComponentsInChildren<Slider>(true);
+        Button[] buttons = backGround.gameObject.GetComponentsInChildren<Button>(true);
+        Text[] text = backGround.gameObject.GetComponentsInChildren<Text>(true);
 
         abilityButtons = new Button[] { buttons[0], buttons[1], buttons[2], buttons[3], buttons[4], buttons[5] };
         cancelButton = buttons[6];
@@ -80,6 +79,7 @@ public class ButtonScript : MonoBehaviour {
 
     void endTurn()
     {
+        hugh_man.friendlies[hugh_man.subjectIndex].hasHadTurn = true;
         hugh_man.phase = CharacterController.TurnPhase.SelectCharacter;
     }
 
@@ -119,6 +119,7 @@ public class ButtonScript : MonoBehaviour {
             abilityButtons[i].onClick.AddListener(delegate { buttonOnClick(index); });
             ability_count++;
             abilityButtons[i].interactable = true;
+            abilityButtons[i].GetComponent<Image>().sprite = current_char.abilities[i].sprite;
         }
     }
 	
@@ -186,6 +187,7 @@ public class ButtonScript : MonoBehaviour {
                         abilityButtons[i].interactable = false;
                     }
                 }
+                endTurnButton.interactable = true;
                 break;
             case CombatPhase.TargetSelection:
                 if(buttonRollCall() != 1)
@@ -198,6 +200,7 @@ public class ButtonScript : MonoBehaviour {
                 }
                 
                 cancelButton.interactable = true;
+                endTurnButton.interactable = false;
                 break;
             case CombatPhase.ActionExecution:
                 //wait for an undetermined ammount of time
