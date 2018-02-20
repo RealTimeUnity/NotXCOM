@@ -2489,12 +2489,13 @@ MonoBehaviour:
   maxMinorAbilities: 1
   numMajorAbilities: 0
   numMinorAbilities: 0
+  hasHadTurn: 0
   abilityPrefabs:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
   abilities:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
   anim: {fileID: 95977362781180038}
-  healthbarPrefab: {fileID: 1072393312336170, guid: 93d5f410b4ca54b47aa76a1cd57153db,
+  healthbarPrefab: {fileID: 1072393312336170, guid: 7106512b03bc25140a268a1f29ad4612,
     type: 2}
 --- !u!136 &136191547353275602
 CapsuleCollider:

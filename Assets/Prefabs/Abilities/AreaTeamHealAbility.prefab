@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4839442759983372}
-  - component: {fileID: 114302266530860604}
+  - component: {fileID: 114790512774520568}
   m_Layer: 0
   m_Name: AreaTeamHealAbility
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114302266530860604
+--- !u!114 &114790512774520568
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -48,16 +48,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1265523632090878}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 881d1973fbd830642ba653c99a743732, type: 3}
+  m_Script: {fileID: 11500000, guid: 18be3b1835e596e42bdd604e30159106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: ee76ada58c5b967468986a238b3e2ab5, type: 3}
+  sprite: {fileID: 0}
   targetType: 4
   type: 1
   useType: 0
   range: 30
   uses: 1
-  abilityName: Area Heal
+  abilityName: Team Heal
   healAmount: 0.35
-  healParticleEffect: {fileID: 1773824837707892, guid: b0e19c5314c292242a00a052c641f142,
+  healParticleEffect: {fileID: 1773824837707892, guid: c80238eb65306204695b857597f81586,
     type: 2}

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33608592653546510}
   - component: {fileID: 23339866019014720}
   - component: {fileID: 198515987254062294}
-  - component: {fileID: 114903979877935346}
+  - component: {fileID: 114563502326672070}
   - component: {fileID: 199418788328744230}
   m_Layer: 0
   m_Name: Sniper
@@ -86,7 +86,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1824718058852036}
   m_Mesh: {fileID: 4300000, guid: 2d61a7b9b321b9b48b79e7c134a7e883, type: 3}
---- !u!114 &114903979877935346
+--- !u!114 &114563502326672070
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -94,16 +94,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1824718058852036}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d06925ec5c348e446b968fc6884bdf2b, type: 3}
+  m_Script: {fileID: 11500000, guid: c3cfc0c3fb165904ca91a3565365ac68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
   targetType: 2
   type: 1
-  useType: 1
+  useType: 0
   range: 100
-  uses: 3
+  uses: 1
   abilityName: Sniper
-  Damage: 40
+  Damage: 25
 --- !u!198 &198515987254062294
 ParticleSystem:
   m_ObjectHideFlags: 1

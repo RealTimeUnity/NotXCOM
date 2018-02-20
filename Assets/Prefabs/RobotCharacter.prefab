@@ -1533,7 +1533,7 @@ Animator:
   m_GameObject: {fileID: 1075979999297356}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  m_Controller: {fileID: 9100000, guid: afabb77bc14da294f92d03f95b52602b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 28a7fad02cb1e5c42a8a44fb8d31b005, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1578,16 +1578,17 @@ MonoBehaviour:
   maxMinorAbilities: 2
   numMajorAbilities: 0
   numMinorAbilities: 0
+  hasHadTurn: 0
   abilityPrefabs:
   - {fileID: 114331017897513740, guid: cf34638d1e9f16a409ed33d2f543dad1, type: 2}
-  - {fileID: 114892878764327600, guid: b4565c9c2ce4d1d42a4589dbc6ab5fce, type: 2}
-  - {fileID: 114302266530860604, guid: ae36185b75a14704d9985df662e963e6, type: 2}
-  - {fileID: 114993796116658346, guid: 448bfe77e57028a42b82a74c28b6023a, type: 2}
-  - {fileID: 114547684493341452, guid: 7e55df24da66c814ea13a593179e1cf6, type: 2}
-  - {fileID: 114697456365852908, guid: 0d305104065554346a2ce53a1e7cff73, type: 2}
+  - {fileID: 114790512774520568, guid: cebeaab3b1a20a54ea17b0021b82a915, type: 2}
+  - {fileID: 114859664898137064, guid: 0b985b58e76435b41bf4669bf12c915e, type: 2}
+  - {fileID: 114971520155763130, guid: c15e54b53444bb247b67ab805f8d4e04, type: 2}
+  - {fileID: 114856719139927584, guid: d6d1c94b9039f5e44bae3d7a37594999, type: 2}
+  - {fileID: 114563502326672070, guid: 47634aeb168bf2e419aae7b217451937, type: 2}
   abilities: []
   anim: {fileID: 95116062990209166}
-  healthbarPrefab: {fileID: 1072393312336170, guid: 93d5f410b4ca54b47aa76a1cd57153db,
+  healthbarPrefab: {fileID: 1072393312336170, guid: 7106512b03bc25140a268a1f29ad4612,
     type: 2}
 --- !u!136 &136982725883411738
 CapsuleCollider:

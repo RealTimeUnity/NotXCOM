@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4114145986441736}
-  - component: {fileID: 114256629813360314}
+  - component: {fileID: 114691344448695854}
   m_Layer: 0
   m_Name: TeamShield
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114256629813360314
+--- !u!114 &114691344448695854
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -48,12 +48,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1861511630934108}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 144eccc4eddd1e34b9ddaf366153f77d, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c8fa67d11cf19841beeb662f692d200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
   targetType: 4
   type: 1
   useType: 0
-  range: 1
+  range: 30
   uses: 1
   abilityName: Team Shield

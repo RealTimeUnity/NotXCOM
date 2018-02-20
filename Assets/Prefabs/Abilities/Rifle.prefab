@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33544981480316918}
   - component: {fileID: 23699600878555750}
   - component: {fileID: 198754759356544976}
-  - component: {fileID: 114697456365852908}
+  - component: {fileID: 114310492287025542}
   - component: {fileID: 199565334295203202}
   m_Layer: 0
   m_Name: Rifle
@@ -85,7 +85,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1316551683975078}
   m_Mesh: {fileID: 4300000, guid: 0e39999bf86d8b84b9e803c41517bccb, type: 3}
---- !u!114 &114697456365852908
+--- !u!114 &114310492287025542
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -93,17 +93,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1316551683975078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d06925ec5c348e446b968fc6884bdf2b, type: 3}
+  m_Script: {fileID: 11500000, guid: c3cfc0c3fb165904ca91a3565365ac68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 91c12e3f40a79854da79ea56001aa5d2, type: 3}
+  sprite: {fileID: 0}
   targetType: 2
   type: 1
-  useType: 1
+  useType: 0
   range: 50
-  uses: 4
+  uses: 1
   abilityName: Rifle
-  Damage: 15
+  Damage: 25
 --- !u!198 &198754759356544976
 ParticleSystem:
   m_ObjectHideFlags: 1
